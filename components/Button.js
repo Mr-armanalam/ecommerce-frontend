@@ -1,0 +1,53 @@
+import styled, { css } from "styled-components";
+
+const StyledButton = styled.button`
+  border: 0;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: medium;
+  svg {
+    height: 16px;
+    margin-right: 5px;
+    fill: #fff;
+  }
+  ${(props) =>
+    props.white === "true" &&
+    props.outline !== "true" &&
+    css`
+      background-color: #fff;
+      color: #000;
+    `}
+
+  ${(props) =>
+    props.white === "true" &&
+    props.outline === "true" &&
+    css`
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+    `}
+  ${(props) =>
+    props.primary === "true" &&
+    css`
+      background-color: #5542f6;
+      color: white;
+      border: 1px solid #5542f6;
+    `}
+  ${(props) =>
+    props.size === "l" &&
+    css`
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      svg {
+        height: 22px;
+      }
+    `}
+`;
+const Button = ({ children, ...rest }) => {
+  return <StyledButton {...rest}>{children}</StyledButton>;
+};
+
+export default Button;

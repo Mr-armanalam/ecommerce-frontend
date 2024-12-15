@@ -1,15 +1,14 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const roboto = Roboto({
+  weight: ['400','500','700','900',],
+  variable: "--font-roboto",
   subsets: ["latin"],
+  display: "swap"
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -20,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` ${roboto.variable} antialiased`}
       >
         {children}
       </body>
