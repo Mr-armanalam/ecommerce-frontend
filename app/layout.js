@@ -1,10 +1,17 @@
-import { Roboto } from "next/font/google";
+import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 
 
 const roboto = Roboto({
   weight: ['400','500','700','900',],
   variable: "--font-roboto",
+  subsets: ["latin"],
+  display: "swap"
+});
+
+const poppins = Poppins({
+  weight: ['100','200','300','400','500','600','700','800','900'],
+  variable: "--font-poppins",
   subsets: ["latin"],
   display: "swap"
 });
@@ -19,7 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={` ${roboto.variable} antialiased`}
+        className={` ${roboto.variable} ${poppins.variable} antialiased`}
       >
         {children}
       </body>
