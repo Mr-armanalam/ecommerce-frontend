@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import Center from "./Center";
 import Button from "./Button";
+import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div`
   background-color: #222;
@@ -23,7 +24,7 @@ const Desc = styled.p`
 
 const ColumnWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   img {
     max-width: 100%;
@@ -41,26 +42,21 @@ const ButtonWrapper = styled.div`
   margin-top: 25px;
 `;
 
-const Featured = () => {
+const Featured = ({ product }) => {
+  const ProductData = JSON.parse(product);
   return (
     <Bg>
       <Center>
         <ColumnWrapper>
           <Column>
             <div>
-              <Title>Pro anywhere</Title>
-              <Desc>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos,
-                modi officiis! Culpa blanditiis accusamus eligendi explicabo
-                impedit. Voluptatibus dignissimos consectetur error quaerat,
-                blanditiis aliquam maiores placeat recusandae veritatis vitae
-                cum?
-              </Desc>
+              <Title>{ProductData?.title}</Title>
+              <Desc>{ProductData?.description}</Desc>
               <ButtonWrapper>
-                <Button outline="true" white="true" >
+                <ButtonLink href={'/products'+product?._id} outline={1} white={1}>
                   Read more
-                </Button>
-                <Button primary="true" >
+                </ButtonLink>
+                <Button primary={1}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

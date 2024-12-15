@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button`
+export const ButtonStyle = css`
   border: 0;
   padding: 5px 15px;
   border-radius: 5px;
@@ -8,29 +8,30 @@ const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
   font-size: medium;
+  text-decoration: none;
   svg {
     height: 16px;
     margin-right: 5px;
     fill: #fff;
   }
   ${(props) =>
-    props.white === "true" &&
-    props.outline !== "true" &&
+    props.white &&
+    !props.outline &&
     css`
       background-color: #fff;
       color: #000;
     `}
 
   ${(props) =>
-    props.white === "true" &&
-    props.outline === "true" &&
+    props.white &&
+    props.outline &&
     css`
       background-color: transparent;
       color: #fff;
       border: 1px solid #fff;
     `}
   ${(props) =>
-    props.primary === "true" &&
+    props.primary &&
     css`
       background-color: #5542f6;
       color: white;
@@ -46,6 +47,9 @@ const StyledButton = styled.button`
       }
     `}
 `;
+
+const StyledButton = styled.button`
+  ${ButtonStyle}`;
 const Button = ({ children, ...rest }) => {
   return <StyledButton {...rest}>{children}</StyledButton>;
 };
