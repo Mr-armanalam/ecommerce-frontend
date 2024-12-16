@@ -1,6 +1,15 @@
-import { model, models, Schema, Types } from 'mongoose'
+import { Document, model, models, Schema, Types } from 'mongoose';
 
-const ProductSchema = new Schema({
+export interface Iproduct extends Document {
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  category: Types.ObjectId | undefined;
+  properties: object | any ;
+}
+
+const ProductSchema = new Schema<Iproduct>({
   title: { type: String, required: true },
   description: { type: String, },
   price: { type: Number, required: true },

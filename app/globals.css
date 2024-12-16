@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   @apply bg-[#eee];
 }
+
+.nav-center {
+  @apply mx-auto px-10;
+}
+.grid-column{
+  @apply flex items-center;
+}
+h1{
+  @apply text-[3rem];
+}
+.description{
+  @apply text-[0.8rem] text-primary-300 ;
+}
+
+.btn-primary1{
+  @apply cursor-pointer inline-flex items-center text-sm font-semibold rounded-sm  ;
+}
+
+.btn_white_noOutline{
+  @apply bg-white text-black ;
+}
+
+.btn_white_Outline{
+  @apply bg-transparent text-white border border-white ;
+}
+
+.btn_primary_noOutline{
+  @apply bg-primaryMain text-white border border-primaryMain;
+}
+
+.btn_primary_Outline{
+  @apply bg-transparent text-primaryMain border border-primaryMain py-0.5 px-4;
+}
+
+.btn_large{
+  @apply text-[1.2rem] py-3 px-5;
+}
+
+h2{
+  @apply text-[2rem] mt-8 mb-5 font-medium text-primary-850;
+}
+
