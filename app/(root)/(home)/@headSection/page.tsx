@@ -7,7 +7,7 @@ const page = async () => {
   const { featuredProduct } = await getFeaturedProduct();
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Featured product={featuredProduct} />
     </>
   );

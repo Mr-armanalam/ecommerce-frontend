@@ -14,3 +14,18 @@ export async function getFeaturedProduct() {
     newProducts : JSON.parse(JSON.stringify(newProduct))
   };
 }
+
+export async function getCartProduct(productId: string[]) {
+  try {    
+    await mongooseConnect();
+    const product = await Product.find({_id: productId});    
+    
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return {product: JSON.parse(JSON.stringify(product))};
+
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}

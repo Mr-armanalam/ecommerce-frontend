@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 export default function Header() {
-  const {cartProducts} = useContext(CartContext)
+  const {cartProducts} = useContext(CartContext);
   return (
     <header className="bg-primary-800">
       <div className="nav-center">

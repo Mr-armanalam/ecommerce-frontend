@@ -21,19 +21,19 @@ h1{
 }
 
 .btn-primary1{
-  @apply cursor-pointer inline-flex items-center text-sm font-semibold rounded-sm  ;
+  @apply cursor-pointer inline-flex items-center text-sm font-semibold   ;
 }
 
 .btn_white_noOutline{
-  @apply bg-white text-black ;
+  @apply bg-white text-black rounded;
 }
 
 .btn_white_Outline{
-  @apply bg-transparent text-white border border-white ;
+  @apply bg-transparent text-white border border-white rounded;
 }
 
 .btn_primary_noOutline{
-  @apply bg-primaryMain text-white border border-primaryMain;
+  @apply bg-primaryMain rounded text-white border border-primaryMain;
 }
 
 .btn_primary_Outline{
@@ -41,7 +41,10 @@ h1{
 }
 
 .btn_large{
-  @apply text-[1.2rem] py-3 px-5;
+  @apply text-[1.2rem] py-3 px-5 ;
+}
+.btn_block{
+  @apply block w-full;
 }
 
 h2{
@@ -51,3 +54,12 @@ h2{
   @apply flex items-center justify-center;
 }
 
+table{
+  @apply w-full;
+}
+th{
+  @apply text-left uppercase text-primary-200 text-[0.7rem];
+}
+td{
+  @apply py-2 border-t border-gray-100;
+}

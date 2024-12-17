@@ -18,7 +18,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
         <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>{title}</Link>
         <div className="flex items-center justify-between mt-0.5">
           <div className="text-[1.2rem] font-bold">${price}</div>
-          <button onClick={() => addProduct(_id)} className="btn-primary1 btn_primary_Outline">
+          <button onClick={() => addProduct(_id)} className="btn-primary1 btn_primary_Outline rounded">
             Add to cart
           </button>
         </div>
