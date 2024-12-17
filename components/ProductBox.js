@@ -1,10 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+'use client'
+import React, { useContext } from "react";
 import Link from "next/link";
+import { CartContext } from "@/context/CartContext";
 
 
 const ProductBox = ({ _id, title, description, price, images }) => {
-  const url = `/product/${_id}`
+  const url = `/product/${_id}`;
+  const {addProduct} = useContext(CartContext);
+
   return (
     <div>
       <Link className="bg-white p-5 h-[150px] flex items-center justify-center rounded-md"  href={url}>
@@ -14,7 +18,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
         <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>{title}</Link>
         <div className="flex items-center justify-between mt-0.5">
           <div className="text-[1.2rem] font-bold">${price}</div>
-          <button className="btn-primary1 btn_primary_Outline">
+          <button onClick={() => addProduct(_id)} className="btn-primary1 btn_primary_Outline">
             Add to cart
           </button>
         </div>

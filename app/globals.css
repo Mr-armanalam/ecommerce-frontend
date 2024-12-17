@@ -47,4 +47,7 @@ h1{
 h2{
   @apply text-[2rem] mt-8 mb-5 font-medium text-primary-850;
 }
+.center{
+  @apply flex items-center justify-center;
+}
 

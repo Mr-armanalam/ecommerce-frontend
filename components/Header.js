@@ -1,6 +1,10 @@
+'use client'
+import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
+import { useContext } from "react";
 
 export default function Header() {
+  const {cartProducts} = useContext(CartContext)
   return (
     <header className="bg-primary-800">
       <div className="nav-center">
@@ -11,7 +15,7 @@ export default function Header() {
             <Link href="/products">All product</Link>
             <Link href="/categories">Categories</Link>
             <Link href={'/account'}>Account</Link>
-            <Link href={'/cart'}>Cart (0)</Link>
+            <Link href={'/cart'}>Cart ({cartProducts?.length})</Link>
           </nav>
         </div>
       </div>
