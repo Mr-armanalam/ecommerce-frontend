@@ -63,3 +63,7 @@ th{
 td{
   @apply py-2 border-t border-gray-100;
 }
+
+.input-b{
+  @apply w-full text-sm outline-none p-1 border-b mb-1.5 rounded-md ;
+}
