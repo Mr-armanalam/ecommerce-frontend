@@ -9,8 +9,12 @@ interface CreateContextType {
   clearCart: () => void;
 }
 
-export const CartContext = createContext<CreateContextType | undefined>(
-  undefined
+export const CartContext = createContext<CreateContextType >(
+  {cartProducts: [],
+  setCartProducts: () => {},
+  addProduct: () => {},
+  removeProduct: () => {},
+  clearCart: () => {},}
 );
 
 export function CartContextProvider({ children }: { children: ReactNode }) {

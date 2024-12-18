@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { getFeaturedProduct } from "@/lib/action/products.action";
 import Featured from "@/components/Featured"
 import React from "react";

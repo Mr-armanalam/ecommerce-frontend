@@ -67,3 +67,7 @@ td{
 .input-b{
   @apply w-full text-sm outline-none p-1 border-b mb-1.5 rounded-md ;
 }
+
+.grid-product{
+  @apply grid grid-cols-4 gap-5;
+}

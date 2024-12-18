@@ -4,8 +4,15 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { CartContext } from "@/context/CartContext";
 
+interface props {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+}
 
-const ProductBox = ({ _id, title, description, price, images }) => {
+const ProductBox = ({ _id, title, description, price, images }: props) => {
   const url = `/product/${_id}`;
   const {addProduct} = useContext(CartContext);
 
