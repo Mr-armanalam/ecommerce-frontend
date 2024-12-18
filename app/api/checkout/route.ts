@@ -10,15 +10,6 @@ if (!process.env.STRIPE_SK) {
 
 const stripe = new Stripe(process.env.STRIPE_SK);
 
-interface formData {
-  name: string;
-  email: string;
-  city: string;
-  postalCode: string;
-  landmark: string;
-  country: string;
-  products: string[];
-}
 export async function POST(req: Request) {
   try {
     mongooseConnect();

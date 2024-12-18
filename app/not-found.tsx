@@ -17,7 +17,7 @@ export default function NotFound() {
       <div className='w-[40rem] center flex-col bg-white rounded-lg h-[15rem]'>
         <h1 className='font-bold'>Not Found</h1>
         <p className='text-xl font-semibold text-primary-300'>Could not find requested resource on</p>
-        <p className='description'>{href}</p>
+        <p className='description line-clamp-1 max-w-full'>{href}</p>
         <button className='btn-primary1 btn_primary_noOutline mt-5 py-1.5 px-5 ' onClick={() => router.back()}>Return Back</button>
       </div>
     </section>

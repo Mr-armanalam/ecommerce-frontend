@@ -20,7 +20,7 @@ const OrderSchema = new Schema<Iorder>({
   landmark: String,
   country: String,
   paid: Boolean,
-});
+}, {timestamps: true});
 
 
 export const Order = models.Order || model<Iorder>("Order", OrderSchema);

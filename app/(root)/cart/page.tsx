@@ -13,7 +13,7 @@ interface Product {
   properties: { [key: string]: string };
 }
 const page = () => {
-  const { cartProducts, addProduct, removeProduct } = useContext(CartContext) ?? { cartProducts: [] };
+  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext) ?? { cartProducts: [] };
   const [products, setProducts] = useState<Product[]>([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,6 +34,13 @@ const page = () => {
       setProducts([]);
     }
   }, [cartProducts]);
+
+  useEffect(()=>{
+    if (typeof window !== 'undefined' && window.location.href.includes('success')) {
+      if (clearCart) clearCart();
+    }
+  },[]);
+
 
   const moreOfThisProduct = (productId: string) => {
     if (addProduct) {
@@ -73,7 +80,7 @@ const page = () => {
     }
   }
 
-  if (window.location.href.includes('success')) {
+  if (typeof window !== 'undefined' && window.location.href.includes('success')) {
     return (
       <div className="grid grid-cols-3 gap-10 nav-center mt-10">
         <div className="bg-white rounded-md col-span-2 p-8">
