@@ -69,5 +69,5 @@ td{
 }
 
 .grid-product{
-  @apply grid grid-cols-4 gap-5;
+  @apply grid grid-cols-5 gap-5;
 }
