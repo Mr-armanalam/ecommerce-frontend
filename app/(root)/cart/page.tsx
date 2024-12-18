@@ -47,6 +47,23 @@ const page = () => {
     }
   };
 
+  const goToPayment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  
+    const formData = new FormData(event.target as HTMLFormElement); 
+    formData.append('cartProducts', JSON.stringify(cartProducts));
+  
+    await fetch('/api/checkout', 
+      { method: 'POST', 
+        body: formData
+      })
+      .then(response =>response.json())
+      .then(data => {
+        console.log(data);
+        window.location.href = data.url;
+      });
+  };
+
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price;
@@ -54,6 +71,17 @@ const page = () => {
     if (price) {
       total += price;
     }
+  }
+
+  if (window.location.href.includes('success')) {
+    return (
+      <div className="grid grid-cols-3 gap-10 nav-center mt-10">
+        <div className="bg-white rounded-md col-span-2 p-8">
+          <h1 className="font-bold">Thanks for your order !</h1>
+          <p className="font-medium ml-2 text-gray-500">We will email you when your order will be sent.</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -120,18 +148,19 @@ const page = () => {
         )}
       </div>
       {!!cartProducts?.length && (
-        <form method="POST" action={'/api/checkout'} 
+        <form onSubmit={goToPayment}
           className="bg-white max-h-fit rounded-md col-auto p-8"
         >
           <h2>Order information</h2>
-          <input className="input-b" type="text" placeholder="Name" value={name} name="name" onChange={(e) => setName(e.target.value)} />
-          <input className="input-b" type="email" placeholder="Email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
+          <input className="input-b" type="text" required placeholder="Name" value={name} name="name" onChange={(e) => setName(e.target.value)} />
+          <input className="input-b" type="email" required placeholder="Email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
           <div className="flex gap-4">
-            <input className="input-b" type="text" placeholder="City" value={city} name="city" onChange={(e) => setCity(e.target.value)} />
-            <input className="input-b" type="number" placeholder="Postel Code" value={postalCode} name="postalCode" onChange={(e) => setPostalCode(e.target.value)} />
+            <input className="input-b" type="text" required placeholder="City" value={city} name="city" onChange={(e) => setCity(e.target.value)} />
+            <input className="input-b" type="number" required placeholder="Postel Code" value={postalCode} name="postalCode" onChange={(e) => setPostalCode(e.target.value)} />
           </div>
-          <input className="input-b" type="text" placeholder="Landmark" value={landmark} name="landmark" onChange={(e) => setLandmark(e.target.value)} />
-          <input className="input-b" type="text" placeholder="Country" value={country} name="country" onChange={(e) => setCountry(e.target.value)} />
+          <input className="input-b" type="text" required placeholder="Landmark" value={landmark} name="landmark" onChange={(e) => setLandmark(e.target.value)} />
+          <input className="input-b" type="text" required placeholder="Country" value={country} name="country" onChange={(e) => setCountry(e.target.value)} />
+          {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
           <button type="submit" className="btn-primary1 bg-primary-800 rounded-md text-white btn_block mt-6 py-2">
             Continue to payment
           </button>
