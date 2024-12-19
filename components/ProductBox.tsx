@@ -10,7 +10,7 @@ interface props {
   images: string[];
 }
 
-const ProductBox = ({ _id, title, description, price, images }: props) => {
+const ProductBox = ({ _id, title, price, images }: props) => {
   const url = `/products/${_id}`;
 
   return (

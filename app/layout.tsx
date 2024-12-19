@@ -1,8 +1,9 @@
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
+
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],

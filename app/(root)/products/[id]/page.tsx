@@ -1,6 +1,5 @@
 
 import CartButton from "@/components/CartButton";
-import { CartIcon } from "@/components/icons";
 import ProductImages from "@/components/ProductImages";
 import { productDatails } from "@/lib/action/productDetails.action";
 import React from "react";

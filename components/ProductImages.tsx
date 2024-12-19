@@ -15,12 +15,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
       <div className="flex overflow-x-auto w-full ">
         {images.map((image, index) => (
 
-          <div className={`${activeImage === image ? "border-2 border-gray-200"
+          <div key={index}
+          className={`${activeImage === image ? "border-2 border-gray-200"
            : "border border-gray-100"} center cursor-pointer shadow-md mt-10 mb-2 rounded-md ml-3 p-2`}
           >
             <img
               onClick={() => setActiveImage(image)}
-              key={index}
               className="w-[80px] bg-transparent mix-blend-multiply object-contain  "
               src={image}
               alt="details-all-product"

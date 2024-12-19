@@ -1,4 +1,8 @@
-export function CartIcon({className='size-6'}) {
+/* eslint-disable react/prop-types */
+
+import React from 'react';
+
+export function CartIcon({ className = 'size-6' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

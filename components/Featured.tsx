@@ -1,10 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-'use client'
-import { useContext } from "react";
-import { CartIcon } from "./icons";
 import Link from "next/link";
-import { CartContext } from "@/context/CartContext";
 import CartButton from "./CartButton";
+import React from "react";
 
 interface props {
   _id: string;
@@ -13,11 +9,7 @@ interface props {
 }
 
 const Featured = ({ product }: {product:props}) => {
-  const {addProduct} = useContext(CartContext)
 
-  const addFeaturedToCart = () => {
-    addProduct(product._id);
-  };
   return (
     <div className="bg-primary-800 text-white py-8">
       <div className="nav-center">

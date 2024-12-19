@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Order } from '@/model/Order.model';
 import { NextRequest, NextResponse } from 'next/server';

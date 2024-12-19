@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Document, model, models, Schema, Types } from 'mongoose';
 
 export interface Iproduct extends Document {

@@ -1,7 +1,8 @@
 'use client'
 import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
-import { useContext } from "react";
+import React, { useContext } from "react";
+
 
 export default function Header() {
   const {cartProducts} = useContext(CartContext);

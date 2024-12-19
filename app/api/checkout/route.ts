@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prefer-const */
 import { mongooseConnect } from "@/lib/mongoose";
 import { Order } from "@/model/Order.model";
 import { Product } from "@/model/product";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import Stripe from 'stripe';
 
 if (!process.env.STRIPE_SK) {
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
     for (const productId of uniqueIds) {
       const productInfo = productsInfos.find(p => p._id.toString() === productId);
       
-      const quantity = productsIds.filter((id:any) => id === productId)?.length || 0 ;
+      const quantity = productsIds.filter((id:string) => id === productId)?.length || 0 ;
       if (quantity > 0 && productInfo) {
         line_items.push({
         quantity,
