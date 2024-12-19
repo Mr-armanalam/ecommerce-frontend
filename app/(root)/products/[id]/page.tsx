@@ -1,8 +1,14 @@
-
 import CartButton from "@/components/CartButton";
 import ProductImages from "@/components/ProductImages";
 import { productDatails } from "@/lib/action/productDetails.action";
+import { Metadata } from "next";
 import React from "react";
+
+
+export const metadata:Metadata = {
+  title: "Shopnest | Products-Details",
+  description: "Products Details",
+};
 
 type Params = Promise<{ id: string }>;
 const ProductDetails = async (props: { params: Params }) => {

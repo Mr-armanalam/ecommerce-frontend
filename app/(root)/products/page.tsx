@@ -1,6 +1,13 @@
 import ProductBox from "@/components/ProductBox";
 import { getAllProducts } from "@/lib/action/allProducts.action";
+import { Metadata } from "next";
 import React from "react";
+
+
+export const metadata:Metadata = {
+  title: "Shopnest | Product",
+  description: "All Products",
+};
 
 const Products = async () => {
   const products = await getAllProducts();

@@ -12,6 +12,8 @@ interface Product {
   category: string;
   properties: { [key: string]: string };
 }
+
+
 const page = () => {
   const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext) ?? { cartProducts: [] };
   const [products, setProducts] = useState<Product[]>([]);

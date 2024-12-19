@@ -1,16 +1,26 @@
 'use client'
 import { CartContext } from "@/context/CartContext";
+import { Lora } from "next/font/google";
 import Link from "next/link";
 import React, { useContext } from "react";
+import { HomeIcon } from "./icons";
 
+export const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+})
 
-export default function Header() {
+export default function Header() {  
   const {cartProducts} = useContext(CartContext);
   return (
     <header className="bg-primary-800">
       <div className="nav-center">
         <div className="flex justify-between py-5">
-          <Link className="text-white" href={"/"}>Ecommerce</Link>
+          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text
+             ${lora.className} text-transparent text-xl font-bold `} href={"/"}
+          > <HomeIcon />
+            Shopnest
+          </Link>
           <nav className="text-primary-300 flex gap-4">
             <Link href="/">Home</Link>
             <Link href="/products">All product</Link>
