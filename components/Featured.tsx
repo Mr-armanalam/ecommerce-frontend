@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { CartIcon } from "./icons";
 import Link from "next/link";
 import { CartContext } from "@/context/CartContext";
+import CartButton from "./CartButton";
 
 interface props {
   _id: string;
@@ -26,13 +27,14 @@ const Featured = ({ product }: {product:props}) => {
               <h1>{product?.title}</h1>
               <p className="description">{product?.description}</p>
               <div className="flex gap-2 mt-6">
-                <Link href={'/products'+product?._id} className="btn-primary1 btn_white_Outline px-4" >
+                <Link href={'/products'+product?._id} className="btn-primary1 py-2 btn_white_Outline px-4" >
                   Read more
                 </Link>
-                <button onClick={addFeaturedToCart} className="btn-primary1 btn_white_noOutline px-4 py-2" >
+                {/* <button onClick={addFeaturedToCart} className="btn-primary1 btn_white_noOutline px-4 py-2" >
                   <CartIcon className="fill-black size-5 mr-1"/>
                   Add to cart
-                </button>
+                </button> */}
+                <CartButton fill={"fill-black size-5"} productId = {product._id} btnType={"btn_white_noOutline "}/>
               </div>
             </div>
           </div>

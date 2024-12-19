@@ -3,7 +3,7 @@ import { getAllProducts } from "@/lib/action/allProducts.action";
 import React from "react";
 
 const Products = async () => {
-  const { products } = await getAllProducts();
+  const products = await getAllProducts();
   
   return (
     <>

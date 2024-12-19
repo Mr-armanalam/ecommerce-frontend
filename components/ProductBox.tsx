@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-'use client'
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
-import { CartContext } from "@/context/CartContext";
+import CartButton from "./CartButton";
 
 interface props {
   _id: string;
@@ -13,8 +11,7 @@ interface props {
 }
 
 const ProductBox = ({ _id, title, description, price, images }: props) => {
-  const url = `/product/${_id}`;
-  const {addProduct} = useContext(CartContext);
+  const url = `/products/${_id}`;
 
   return (
     <div>
@@ -25,9 +22,7 @@ const ProductBox = ({ _id, title, description, price, images }: props) => {
         <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>{title}</Link>
         <div className="flex items-center justify-between mt-0.5">
           <div className="text-[1.2rem] font-bold">${price}</div>
-          <button onClick={() => addProduct(_id)} className="btn-primary1 btn_primary_Outline rounded">
-            Add to cart
-          </button>
+          <CartButton icon={false} productId={_id} btnType="btn_primary_Outline rounded-md"/>
         </div>
       </div>
     </div>
