@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import CartButton from "./CartButton";
+import CartButton from "./client/CartButton";
 
 interface props {
   _id: string;
@@ -15,14 +15,27 @@ const ProductBox = ({ _id, title, price, images }: props) => {
 
   return (
     <div>
-      <Link className="bg-white p-5 h-[150px] flex items-center justify-center rounded-md"  href={url}>
-        <img src={images[0]} alt="new product" className="max-w-[100%] max-h-[100px]" />
+      <Link
+        className="bg-white p-5 h-[150px] flex items-center justify-center rounded-md"
+        href={url}
+      >
+        <img
+          src={images[0]}
+          alt="new product"
+          className="max-w-[100%] max-h-[100px]"
+        />
       </Link>
       <div className="mt-1.5">
-        <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>{title}</Link>
+        <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>
+          {title}
+        </Link>
         <div className="flex items-center justify-between mt-0.5">
           <div className="text-[1.2rem] font-bold">${price}</div>
-          <CartButton icon={false} productId={_id} btnType="btn_primary_Outline rounded-md"/>
+          <CartButton
+            icon={false}
+            productId={_id}
+            btnType="btn_primary_Outline rounded-md"
+          />
         </div>
       </div>
     </div>
@@ -30,7 +43,6 @@ const ProductBox = ({ _id, title, price, images }: props) => {
 };
 
 export default ProductBox;
-
 
 // import styled from "styled-components";
 // import Button from "./Button";

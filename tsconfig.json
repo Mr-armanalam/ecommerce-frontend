@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/chatgpt/route.ts",
-    "components/icons.js"
+    "components/icons.tsx"
   ],
   "exclude": [
     "node_modules",

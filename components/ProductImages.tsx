@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const ProductImages = ({ images }: { images: string[] }) => {
   const [activeImage, setActiveImage] = useState(images?.[0] || '');
   return (
-    <div className="flex flex-col">
+    <div className="flex h-fit flex-col">
         <div className="center max-h-[220px] w-full">
           <img
             className="max-w-[100%] max-h-[220px] object-contain"

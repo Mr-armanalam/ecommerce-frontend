@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CartButton from "./CartButton";
+import CartButton from "./client/CartButton";
 import React from "react";
 
 interface props {
@@ -8,8 +8,7 @@ interface props {
   description: string;
 }
 
-const Featured = ({ product }: {product:props}) => {
-
+const Featured = ({ product }: { product: props }) => {
   return (
     <div className="bg-primary-800 text-white py-8">
       <div className="nav-center">
@@ -19,19 +18,26 @@ const Featured = ({ product }: {product:props}) => {
               <h1>{product?.title}</h1>
               <p className="description">{product?.description}</p>
               <div className="flex gap-2 mt-6">
-                <Link href={'/products'+product?._id} className="btn-primary1 py-2 btn_white_Outline px-4" >
+                <Link
+                  href={"/products" + product?._id}
+                  className="btn-primary1 py-2 btn_white_Outline px-4"
+                >
                   Read more
                 </Link>
                 {/* <button onClick={addFeaturedToCart} className="btn-primary1 btn_white_noOutline px-4 py-2" >
                   <CartIcon className="fill-black size-5 mr-1"/>
                   Add to cart
                 </button> */}
-                <CartButton fill={"fill-black size-5"} productId = {product._id} btnType={"btn_white_noOutline "}/>
+                <CartButton
+                  fill={"fill-black size-5"}
+                  productId={product._id}
+                  btnType={"btn_white_noOutline "}
+                />
               </div>
             </div>
           </div>
           <div className="grid-column">
-            <div className="flex pr-10"> 
+            <div className="flex pr-10">
               <img
                 src="https://res.cloudinary.com/dfdgzoi7t/image/upload/v1734252785/product_1734252762572.webp"
                 alt="home product"
@@ -46,8 +52,6 @@ const Featured = ({ product }: {product:props}) => {
 };
 
 export default Featured;
-
-
 
 // import styled from "styled-components";
 // import Center from "./Center";
