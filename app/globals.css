@@ -58,7 +58,7 @@ table{
   @apply w-full;
 }
 th{
-  @apply text-left uppercase text-primary-200 text-[0.7rem];
+  @apply text-left uppercase text-gray-500 text-[0.7rem];
 }
 td{
   @apply py-2 border-t border-gray-100;
@@ -70,4 +70,7 @@ td{
 
 .grid-product{
   @apply grid grid-cols-5 gap-5;
+}
+input{
+  @apply outline-none border-b rounded-lg py-1 px-2 text-gray-600 ;
 }

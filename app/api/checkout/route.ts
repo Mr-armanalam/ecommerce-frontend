@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       formDataObject[key] = value;
     });    
 
-    const { name, email, city, postalCode, landmark, country, cartProducts } = formDataObject;
+    const { name, email, city, postalCode, landmark, country, cartProducts, clientuser } = formDataObject;
 
     // const productsIds = cartProducts;
     const productsIds = JSON.parse(cartProducts);    
@@ -40,7 +40,6 @@ export async function POST(req: Request) {
           currency: 'USD',
           product_data: {name: productInfo.title},
           unit_amount: quantity * productInfo.price * 100,
-
         }
       })
       }
@@ -50,6 +49,8 @@ export async function POST(req: Request) {
       line_items,
       name,email,city, postalCode,
       country,landmark, paid: false,
+      clientuser,
+      products: uniqueIds
     });
 
     const session = await stripe.checkout.sessions.create({

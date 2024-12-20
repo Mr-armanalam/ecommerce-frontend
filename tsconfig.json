@@ -34,11 +34,11 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/chatgpt/route.ts",
-    "components/icons.tsx"
+    "components/icons.tsx",
+    "next-auth.d.ts"
   ],
   "exclude": [
     "node_modules",
-    "components/icons.ts "
   ],
   "typeRoots": [
     "./node_modules/@types",

@@ -1,6 +1,7 @@
 "use client";
 import { CartContext } from "@/context/CartContext";
 import { getCartProduct } from "@/lib/action/products.action";
+import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 
 interface Product {
@@ -23,8 +24,8 @@ const page = () => {
   const [country, setCountry] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [landmark, setLandmark] = useState('');
+  const {data:session} = useSession();
   
-
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -61,6 +62,7 @@ const page = () => {
   
     const formData = new FormData(event.target as HTMLFormElement); 
     formData.append('cartProducts', JSON.stringify(cartProducts));
+    if (session) formData.append('clientuser', session.user.id);
   
     await fetch('/api/checkout', 
       { method: 'POST', 
@@ -95,7 +97,7 @@ const page = () => {
 
   return (
     <div className="grid grid-cols-3 gap-10 nav-center mt-10">
-      <div className="bg-white rounded-md col-span-2 p-8">
+      <div className="bg-white h-fit rounded-md col-span-2 p-8">
         <h2 className="font-bold">Cart</h2>
         {!cartProducts?.length ? (
           <div>Your cart is empty</div>

@@ -1,10 +1,10 @@
+'use client'
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import React, { ReactNode } from "react";
 import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
-import { Metadata } from "next";
-
+import { SessionProvider } from "next-auth/react";
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -20,14 +20,6 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export const metadata:Metadata = {
-  title: "Shopnest",
-  description: "Do you need something, Let's buy together",
-  applicationName: "Shopnest",
-  keywords: ["Shopnest", "ShopNest", "shopnest", "shop nest", "shopnest ecommerce website", "shopnest store" ],
-  creator: "Arman Alam",
-  icons:"logo2.png"
-};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -35,7 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>
         <CartContextProvider>
           <Header />
-          {children}
+          <SessionProvider>{children}</SessionProvider>
         </CartContextProvider>
       </body>
     </html>

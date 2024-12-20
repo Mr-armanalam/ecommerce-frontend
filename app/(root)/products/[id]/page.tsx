@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Shopnest | Products-Details",
+  title: "QuirkCart | Products-Details",
   description: "Products Details",
 };
 

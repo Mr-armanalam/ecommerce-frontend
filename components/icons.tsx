@@ -27,7 +27,7 @@ export function HomeIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-6 text-gray-400"
+      className="size-6 mr-0.5 text-gray-400"
     >
       <path
         strokeLinecap="round"

@@ -19,7 +19,7 @@ export default function Header() {
           <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text
              ${lora.className} text-transparent text-xl font-bold `} href={"/"}
           > <HomeIcon />
-            Shopnest
+            QuirkCart
           </Link>
           <nav className="text-primary-300 flex gap-4">
             <Link href="/">Home</Link>
