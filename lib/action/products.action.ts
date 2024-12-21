@@ -3,6 +3,7 @@
 
 import { Product } from "@/model/product";
 import { mongooseConnect } from "../mongoose";
+import { Order } from "@/model/Order.model";
 
 export async function getFeaturedProduct() {
   const featuredProductId = "675d60ac6c792646c91f64ff";
@@ -22,11 +23,30 @@ export async function getCartProduct(productId: string[]) {
     const product = await Product.find({_id: productId});    
     
     if (!product) {
-      throw new Error("Product not found");
+      console.error("product not found");
+      return { products: [] };
     }
     return {product: JSON.parse(JSON.stringify(product))};
 
   } catch (error: any) {
-    throw new Error(error.message);
+    console.error(error.message);
+    return { products: [] };
+  }
+}
+
+export async function allOrderItems(clientuser: string){
+  try {
+    await mongooseConnect();
+    const orderItems = await Order.find({clientuser}).populate('products');
+    
+    if (!orderItems) {
+      console.error("Order items not found");
+      return { orderItems: [] };
+    }
+    return {orderItems: JSON.parse(JSON.stringify(orderItems))};
+  }
+  catch (error: any) {
+    console.error(error.message);
+    return { orderItems: [] };
   }
 }

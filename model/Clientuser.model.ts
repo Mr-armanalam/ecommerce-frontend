@@ -1,6 +1,8 @@
 import { Schema, model, models, Document } from "mongoose";
 
-interface Address {
+export interface Address {
+  name: { type: string };
+  email: { type: string };
   city: string;
   postalCode: string;
   landmark: string;
@@ -18,7 +20,7 @@ interface IClientUser extends Document {
 }
 
 const ClientuserSchema = new Schema<IClientUser>({
-  name: { type: String},
+  name: { type: String },
   email: { type: String, required: true, unique: true },
   password: { type: String },
   role: { type: String, required: true },
@@ -26,12 +28,15 @@ const ClientuserSchema = new Schema<IClientUser>({
   emailVerified: { type: Boolean, default: false },
   address: [
     {
+      name: { type: String },
+      email: { type: String },
       city: { type: String },
-      postalCode: { type: String},
+      postalCode: { type: String },
       landmark: { type: String },
-      country: { type: String},
+      country: { type: String },
     },
   ],
 });
 
-export const ClientUser = models.ClientUser || model<IClientUser>("ClientUser", ClientuserSchema);
+export const ClientUser =
+  models.ClientUser || model<IClientUser>("ClientUser", ClientuserSchema);

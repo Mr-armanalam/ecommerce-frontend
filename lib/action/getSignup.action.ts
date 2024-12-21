@@ -4,6 +4,7 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { ClientUser } from "@/model/Clientuser.model";
 import { signIn } from "next-auth/react";
+import { NextResponse } from "next/server";
 
 export const getSignUp = async ({email, password}:{email: string; password:string}) => {
     if (!email || !password) {
@@ -19,6 +20,7 @@ export const getSignUp = async ({email, password}:{email: string; password:strin
         const user = await ClientUser.create({ email, password, role:'user' });
         if (!user) return;
         await signIn("credentials", { email, password, callbackUrl: "/account" });
+        return NextResponse.json('SignUpSuccess', {status: 200});
       }
     } catch (error:any) {
       throw new Error(error.message);

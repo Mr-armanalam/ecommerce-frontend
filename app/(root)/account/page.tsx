@@ -1,21 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import AddressShower from "@/components/client/AddressShower";
+import { lora } from "@/components/Header";
+import { AddressSaver } from "@/lib/action/addressSaver";
+import { allOrderItems } from "@/lib/action/products.action";
 import { signOut, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
-interface Product {
-  _id: string;
+interface IProducts {
   title: string;
-  description: string;
-  price: number;
   images: string[];
-  category: string;
-  properties: { [key: string]: string };
+  description: string;
+}
+interface IOrders {
+  line_items: [{ quantity: number }];
+  name: string;
+  email: string;
+  products: IProducts[];
+  city: string;
+  postalCode: string;
+  landmark: string;
+  country: string;
+  paid: boolean;
 }
 
 const page = () => {
-  const {data: session} = useSession();
-  const [products, setProducts] = useState<Product[]>([]);
+  const { data: session } = useSession();
+  const [orders, setOrders] = useState<IOrders[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -23,14 +34,48 @@ const page = () => {
   const [postalCode, setPostalCode] = useState("");
   const [landmark, setLandmark] = useState("");
 
+  useEffect(() => {
+    (async () => {
+      if (!session?.user?.id) return;
+      const { orderItems } = await allOrderItems(session?.user?.id);
+      if (!orderItems) {
+        throw new Error("Failed to fetch orders");
+      }
+      setOrders(orderItems);
+    })();
+  }, [session?.user]);
 
+  const handleAddressSave = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    if (session) formData.append('_id', session.user.id);
+    const response = await AddressSaver(formData);
+    if (response.status === 'ok') {
+      // alert("Address saved successfully");
+      setName("");
+      setEmail("");
+      setCity("");
+      setCountry("");
+      setPostalCode("");
+      setLandmark("");
+    }   
+  };
+  
 
   return (
-    <div className="grid grid-cols-3 gap-10 nav-center mt-10">
-      <div className="bg-white h-fit rounded-md col-span-2 p-8 pb-12">
-        <h2 className="font-bold">Orders</h2>
-        {!products?.length ? (
-          <div>Your Order is empty</div>
+    <div className="grid overflow-y-auto grid-cols-3 gap-10 nav-center mt-10">
+      <div className="white_box">
+        <Link
+          href={process.env.ADMIN_URL || ""}
+          className={`absolute ${lora.className} cursor-pointer text-sm border-2 border-gray-300
+          rounded-2xl bg-gray-900 text-white right-8 py-2 px-4 top-8 hover:border-gray-600
+           hover:bg-white transition-colors hover:text-gray-600`}
+        >
+          Login as Seller
+        </Link>
+        <h2 className={` ${lora.className} `}>Orders</h2>
+        {!orders?.length ? (
+          <div className={`text-gray-500 ${lora.className}`}>Your Order is empty</div>
         ) : (
           <>
             <table>
@@ -38,48 +83,58 @@ const page = () => {
                 <tr>
                   <th className="w-[52%]">Product</th>
                   <th className="w-[32%]">Address</th>
-                  <th>Quantity</th>
                   <th>Paid</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
-                {products?.map((product, index) => (
+                {orders?.map((order, index) => (
                   <tr key={index}>
-                    <td className="flex ">
-                      <div className="w-[100px] h-[100px] p-3 shadow-md border border-gray-100 center rounded-md">
-                        <img
-                          src={product.images[0]}
-                          alt="cart product"
-                          className="max-w-[80px] max-h-[80px]"
-                        />
+                    <td className="flex flex-col gap-4 ">
+                      {order?.products.length > 0 &&
+                        order.products.map((product, index) => (
+                          <div key={index} className="flex">
+                            <div className="w-[100px] h-[100px] p-3 shadow-md border border-gray-100 center rounded-md">
+                              <img
+                                src={product?.images[0]}
+                                alt="order product"
+                                className="max-w-[80px] max-h-[80px]"
+                              />
+                            </div>
+                            <div className=" text-left w-8/12 ml-6">
+                              <div className="text-[1.2rem] text-gray-500 font-semibold">
+                                {product?.title}
+                              </div>
+                              <div className="line-clamp-2 text-balance text-gray-400 text-[.8rem]">
+                                {product?.description}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </td>
+                    <td className="text-sm relative text-gray-400 ">
+                      <div className="absolute top-3 left-0 right-0">
+                        name: {order.name} <br />
+                        email: {order.email} <br />
+                        address: {order.city} , {order.postalCode},{" "}
+                        {order.landmark}, {order.country}
                       </div>
-                      <div className=" text-left w-8/12 ml-6">
-                        <div className="text-[1.2rem] text-gray-500 font-semibold">
-                          {product?.title}
-                        </div>
-                        <div className="line-clamp-2 text-balance text-gray-400 text-[.8rem]">
-                          {product?.description}
-                        </div>
+                    </td>
+                    <td className={`font-semibold relative ${order.paid ? 'text-green-700' : 'text-red-600'}`}>
+                      <p className="absolute top-8 ">
+                        {order.paid ? "Yes" : "No"}
+                      </p>
+                    </td>
+                    <td className="relative">
+                      <div className="font-semibold absolute top-8 flex flex-col gap-20 text-gray-500">
+                        {order?.line_items.length > 0 &&
+                          order?.line_items.map((item, litem) => (
+                            <p className="pl-1 " key={litem}>
+                              {item.quantity} unit
+                            </p>
+                          ))}
                       </div>
                     </td>
-                    <td className="text-sm text-gray-400 ">
-                      name: Arman Alam <br />
-                      email: arman123@gmail.com <br />
-                      address: Motihari {","} 1234
-                      {","} RajaBAjar
-                      {","} India
-                      {/* name: {order.name} <br />
-                      email: {order.email} <br />
-                      address: {order.city} {","} {order.postalCode}
-                      {","} {order.landmark}
-                      {","} {order.country} */}
-                    </td>
-                    <td>
-                      <span className="font-semibold pl-8 text-gray-500">
-                        {/* {cartProducts.filter((id) => id === product._id).length} */} 1
-                      </span>
-                    </td>
-                    <td className="font-semibold text-green-700">Yes</td>
                   </tr>
                 ))}
               </tbody>
@@ -87,10 +142,20 @@ const page = () => {
           </>
         )}
       </div>
+      <div>
         <form
-          className="bg-white max-h-fit rounded-md col-auto p-8"
+          className="white_box"
+          onSubmit={handleAddressSave}
         >
-          <h2>Order information</h2>
+          <button
+            type="button"
+            className={`absolute ${lora.className} font-semibold btn-primary1 btn_primary_Outline border-2
+            rounded-2xl text-gray-600 right-8 top-8 active:bg-gray-900 active:text-white`}
+            onClick={() => signOut()}
+          >
+            Logout
+          </button>
+          <h2 className={`${lora.className}`}>New Address</h2>
           <input
             className="input-b"
             type="text"
@@ -151,11 +216,11 @@ const page = () => {
             type="submit"
             className="btn-primary1 bg-primary-800 rounded-md text-white btn_block mt-6 py-2"
           >
-            Continue to payment
+            Save
           </button>
-          <button type="button" onClick={() => signOut()}>Logout</button>
-
         </form>
+        <AddressShower />
+      </div>
     </div>
   );
 };
