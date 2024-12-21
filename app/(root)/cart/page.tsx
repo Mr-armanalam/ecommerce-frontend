@@ -1,4 +1,6 @@
 "use client";
+import AddressShower from "@/components/client/AddressShower";
+import { lora } from "@/components/Header";
 import { CartContext } from "@/context/CartContext";
 import { getCartProduct } from "@/lib/action/products.action";
 import { useSession } from "next-auth/react";
@@ -98,9 +100,9 @@ const page = () => {
   return (
     <div className="grid grid-cols-3 gap-10 nav-center mt-10">
       <div className="bg-white h-fit rounded-md col-span-2 p-8">
-        <h2 className="font-bold">Cart</h2>
+        <h2 className={`font-bold ${lora.className}`}>Cart</h2>
         {!cartProducts?.length ? (
-          <div>Your cart is empty</div>
+          <div className={lora.className}>Your cart is empty</div>
         ) : (
           <>
             <table>
@@ -159,23 +161,34 @@ const page = () => {
         )}
       </div>
       {!!cartProducts?.length && (
-        <form onSubmit={goToPayment}
-          className="bg-white max-h-fit rounded-md col-auto p-8"
-        >
-          <h2>Order information</h2>
-          <input className="input-b" type="text" required placeholder="Name" value={name} name="name" onChange={(e) => setName(e.target.value)} />
-          <input className="input-b" type="email" required placeholder="Email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
-          <div className="flex gap-4">
-            <input className="input-b" type="text" required placeholder="City" value={city} name="city" onChange={(e) => setCity(e.target.value)} />
-            <input className="input-b" type="number" required placeholder="Postel Code" value={postalCode} name="postalCode" onChange={(e) => setPostalCode(e.target.value)} />
-          </div>
-          <input className="input-b" type="text" required placeholder="Landmark" value={landmark} name="landmark" onChange={(e) => setLandmark(e.target.value)} />
-          <input className="input-b" type="text" required placeholder="Country" value={country} name="country" onChange={(e) => setCountry(e.target.value)} />
-          {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
-          <button type="submit" className="btn-primary1 bg-primary-800 rounded-md text-white btn_block mt-6 py-2">
-            Continue to payment
-          </button>
-        </form>
+        <div>
+          <form onSubmit={goToPayment}
+            className="bg-white max-h-fit rounded-md col-auto p-8"
+          >
+            <h2 className={lora.className}>Order information</h2>
+            <input className="input-b" type="text" required placeholder="Name" value={name} name="name" onChange={(e) => setName(e.target.value)} />
+            <input className="input-b" type="email" required placeholder="Email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
+            <div className="flex gap-4">
+              <input className="input-b" type="text" required placeholder="City" value={city} name="city" onChange={(e) => setCity(e.target.value)} />
+              <input className="input-b" type="number" required placeholder="Postel Code" value={postalCode} name="postalCode" onChange={(e) => setPostalCode(e.target.value)} />
+            </div>
+            <input className="input-b" type="text" required placeholder="Landmark" value={landmark} name="landmark" onChange={(e) => setLandmark(e.target.value)} />
+            <input className="input-b" type="text" required placeholder="Country" value={country} name="country" onChange={(e) => setCountry(e.target.value)} />
+            {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
+            <button type="submit" className="btn-primary1 bg-primary-800 rounded-md text-white btn_block mt-6 py-2">
+              Continue to payment
+            </button>
+          </form>
+          <AddressShower
+            setName={setName}
+            setEmail={setEmail}
+            setCity={setCity}
+            setCountry={setCountry}
+            setPostalCode={setPostalCode}
+            setLandmark={setLandmark}
+            isCart={true}
+          />
+        </div>
       )}
     </div>
   );

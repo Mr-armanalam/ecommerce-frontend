@@ -66,10 +66,10 @@ const page = () => {
     <div className="grid overflow-y-auto grid-cols-3 gap-10 nav-center mt-10">
       <div className="white_box">
         <Link
-          href={process.env.ADMIN_URL || ""}
+          href={process.env.NEXT_PUBLIC_ADMIN_URL || ""}
           className={`absolute ${lora.className} cursor-pointer text-sm border-2 border-gray-300
-          rounded-2xl bg-gray-900 text-white right-8 py-2 px-4 top-8 hover:border-gray-600
-           hover:bg-white transition-colors hover:text-gray-600`}
+          rounded-2xl bg-gray-900 text-white right-8 py-2 px-4 top-8 active:border-gray-600
+           active:bg-white transition-colors active:text-gray-600`}
         >
           Login as Seller
         </Link>
@@ -83,14 +83,14 @@ const page = () => {
                 <tr>
                   <th className="w-[52%]">Product</th>
                   <th className="w-[32%]">Address</th>
-                  <th>Paid</th>
+                  <th className="w-16">Paid</th>
                   <th>Quantity</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {orders?.map((order, index) => (
                   <tr key={index}>
-                    <td className="flex flex-col gap-4 ">
+                    <td className="flex py-8 flex-col gap-4 ">
                       {order?.products.length > 0 &&
                         order.products.map((product, index) => (
                           <div key={index} className="flex">
@@ -113,7 +113,7 @@ const page = () => {
                         ))}
                     </td>
                     <td className="text-sm relative text-gray-400 ">
-                      <div className="absolute top-3 left-0 right-0">
+                      <div className="absolute text-wrap top-10 left-0 right-0">
                         name: {order.name} <br />
                         email: {order.email} <br />
                         address: {order.city} , {order.postalCode},{" "}
@@ -121,16 +121,16 @@ const page = () => {
                       </div>
                     </td>
                     <td className={`font-semibold relative ${order.paid ? 'text-green-700' : 'text-red-600'}`}>
-                      <p className="absolute top-8 ">
+                      <p className="absolute top-16 ">
                         {order.paid ? "Yes" : "No"}
                       </p>
                     </td>
-                    <td className="relative">
-                      <div className="font-semibold absolute top-8 flex flex-col gap-20 text-gray-500">
+                    <td className="relative ">
+                      <div className="font-semibold absolute pl-4 top-16 flex flex-col gap-20 text-gray-500">
                         {order?.line_items.length > 0 &&
                           order?.line_items.map((item, litem) => (
                             <p className="pl-1 " key={litem}>
-                              {item.quantity} unit
+                              {item.quantity} 
                             </p>
                           ))}
                       </div>
@@ -219,7 +219,14 @@ const page = () => {
             Save
           </button>
         </form>
-        <AddressShower />
+        <AddressShower 
+        setName = {setName}
+        setEmail = {setEmail}
+        setCity = {setCity}
+        setCountry = {setCountry}
+        setPostalCode = {setPostalCode}
+        setLandmark = {setLandmark}
+        />
       </div>
     </div>
   );
