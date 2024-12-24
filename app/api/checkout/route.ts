@@ -35,15 +35,15 @@ export async function POST(req: Request) {
       const quantity = productsIds.filter((id:string) => id === productId)?.length || 0 ;
       if (quantity > 0 && productInfo) {
         line_items.push({
-        quantity,
-        price_data: {
-          currency: 'USD',
-          product_data: {name: productInfo.title},
-          unit_amount: quantity * productInfo.price * 100,
-        }
-      })
+          quantity,
+          price_data: {
+            currency: 'USD',
+            product_data: {name: productInfo.title},
+            unit_amount: quantity * productInfo.price * 100,
+          }
+        });
       }
-    }
+    }    
 
     const orderDoc = await Order.create({
       line_items,
@@ -59,7 +59,10 @@ export async function POST(req: Request) {
       customer_email: email,
       success_url: `${process.env.PUBLIC_URL}/cart?success=1`,
       cancel_url: `${process.env.PUBLIC_URL}/cart?canceled=1`,
-      metadata: {orderId: orderDoc._id.toString()}
+      metadata: {
+        orderId: orderDoc._id.toString(), 
+        productsIds: JSON.stringify(productsIds)
+      }
     });
 
     return NextResponse.json({

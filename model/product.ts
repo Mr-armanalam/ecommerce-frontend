@@ -2,6 +2,7 @@
 import { Document, model, models, Schema, Types } from 'mongoose';
 
 export interface Iproduct extends Document {
+  adminUser: Types.ObjectId | undefined;  
   title: string;
   description: string;
   price: number;
@@ -11,6 +12,7 @@ export interface Iproduct extends Document {
 }
 
 const ProductSchema = new Schema<Iproduct>({
+  adminUser: { type: Types.ObjectId, ref: 'AdminUser' },
   title: { type: String, required: true },
   description: { type: String, },
   price: { type: Number, required: true },

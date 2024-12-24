@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { mongooseConnect } from '@/lib/mongoose';
+import { AdminUser } from '@/model/adminUser.model';
 import { Order } from '@/model/Order.model';
+import { Product } from '@/model/product';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -41,6 +44,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
+    await mongooseConnect(); /////////////
     event = stripe.webhooks.constructEvent(buf, sig!, endpointSecret!);
   } catch (err:any) {
     console.error(` Webhook signature verification failed.`, err);
@@ -51,7 +55,31 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const paymentData = event.data.object as any ;
-      const orderId = paymentData.metadata.orderId;
+      const orderId = paymentData.metadata.orderId; 
+
+      const SproductsIds = paymentData.metadata.productsIds;
+      const productsIds = JSON.parse(SproductsIds);
+      const products = await Product.find({ _id: { $in: productsIds } }); 
+      const revenueByAdmin : { [key: string]: number} = {};       
+
+      products.forEach(product => { 
+        if (product.adminUser) { 
+          const adminId = product.adminUser.toString(); 
+          if (!revenueByAdmin[adminId]) { 
+            revenueByAdmin[adminId] = 0; 
+          } 
+          revenueByAdmin[adminId] += product.price; 
+        } 
+      }); 
+      
+      for (const [adminId, totalRevenue] of Object.entries(revenueByAdmin)) { 
+        try {           
+          await AdminUser.findByIdAndUpdate( adminId, { $inc: { totalRevenue } },{ new: true }  ); 
+        } catch (error) { 
+          console.error(`Error updating Admin ID ${adminId}:`, error); 
+        } 
+      }   
+      
       const paid = paymentData.payment_status === 'paid';
       if (paid && orderId) {
         await Order.findByIdAndUpdate(orderId,{paid: true});
