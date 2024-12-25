@@ -1,7 +1,7 @@
 "use client";
 
 import { lora } from "@/components/Header";
-import { getSignUp } from "@/lib/action/getSignUp.action";
+import { getSignUp } from "@/lib/action/getSignup.action";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
