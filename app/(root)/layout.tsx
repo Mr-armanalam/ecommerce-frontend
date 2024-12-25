@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "quirkcart store",
   ],
   creator: "Arman Alam",
-  icons: "logo2.png",
+  icons: "qlogo.svg",
 };
 
 const Layout = ({children}: {children:ReactNode}) => {
