@@ -10,6 +10,7 @@ interface Iorder extends Document {
   postalCode: string;
   landmark: string;
   country: string;
+  status: string;
   paid: boolean;
 }
 
@@ -23,6 +24,7 @@ const OrderSchema = new Schema<Iorder>({
   postalCode: String,
   landmark: String,
   country: String,
+  status: {type: String, default: 'new'},
   paid: Boolean,
 }, {timestamps: true});
 

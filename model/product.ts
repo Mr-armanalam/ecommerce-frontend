@@ -9,6 +9,8 @@ export interface Iproduct extends Document {
   images: string[];
   category: Types.ObjectId | undefined;
   properties: object | any ;
+  sells: number;
+  totalItem: number;
 }
 
 const ProductSchema = new Schema<Iproduct>({
@@ -19,6 +21,8 @@ const ProductSchema = new Schema<Iproduct>({
   images: [{ type: String }],
   category: { type: Types.ObjectId, ref: 'Category' },
   properties: { type: Object},
+  sells: {type: Number, default:0},
+  totalItem: { type: Number, default: 0},
 }, {timestamps: true})
 
 export const Product = models.Product || model('Product', ProductSchema);

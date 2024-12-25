@@ -33,6 +33,7 @@ const page = () => {
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [landmark, setLandmark] = useState("");
+  const [prevAddress, setPrevAddress] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -50,8 +51,9 @@ const page = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     if (session) formData.append('_id', session.user.id);
     const response = await AddressSaver(formData);
+    
     if (response.status === 'ok') {
-      // alert("Address saved successfully");
+      setPrevAddress(response?.clientUser?.address);
       setName("");
       setEmail("");
       setCity("");
@@ -61,7 +63,6 @@ const page = () => {
     }   
   };
   
-
   return (
     <div className="grid overflow-y-auto grid-cols-3 gap-10 nav-center mt-10">
       <div className="white_box">
@@ -220,6 +221,7 @@ const page = () => {
           </button>
         </form>
         <AddressShower 
+        prevAddress= {prevAddress}
         setName = {setName}
         setEmail = {setEmail}
         setCity = {setCity}

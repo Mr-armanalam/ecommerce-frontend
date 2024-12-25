@@ -18,5 +18,5 @@ export const AddressSaver = async(frmdata: FormData) => {
   clientUser.address.push({ name, email, city, postalCode, landmark, country })
   
   clientUser.save();
-  return {status: 'ok'} ;
+  return {status: 'ok', clientUser : JSON.parse(JSON.stringify(clientUser))} ;
 }

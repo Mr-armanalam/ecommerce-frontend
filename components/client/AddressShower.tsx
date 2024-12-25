@@ -23,6 +23,7 @@ const AddressShower = ({
   setPostalCode,
   setLandmark,
   isCart,
+  prevAddress,
 }: {
   setName: (id: string) => void;
   setEmail: (id: string) => void;
@@ -31,9 +32,11 @@ const AddressShower = ({
   setPostalCode: (id: string) => void;
   setLandmark: (id: string) => void;
   isCart?: boolean;
+  prevAddress?: IAddresses[] | undefined;
 }) => {
-  const { data: session } = useSession();
+  const { data: session } = useSession();  
   const [addresses, setAddresses] = useState<IAddresses[]>([]);
+  
 
   const fetchAddresses = async () => {
     if (!session?.user?.id || addresses.length > 0) return;
@@ -46,8 +49,16 @@ const AddressShower = ({
   };
 
   useEffect(() => {
-    fetchAddresses();
-  }, [session?.user]);
+    if(prevAddress?.length){
+      setAddresses(prevAddress);
+    }else{
+      fetchAddresses();
+    }
+  },[prevAddress?.length, session?.user]);
+
+  // useEffect(() => {
+  //   fetchAddresses();
+  // }, [session?.user]);
 
   const handleAddressEdit = (address:IAddresses) => {
     setName(address.name);
@@ -63,8 +74,8 @@ const AddressShower = ({
       <h3 className={` ${lora.className} text-xl `}>Saved Address</h3>
       {addresses.length > 0 &&
         addresses.map((address, index) => (
-          <div key={index} className="text-sm mt-4 relative text-gray-500">
-            <span className="absolute top-1 right-0" onClick={() => handleAddressEdit(address)}>
+          <div key={index} className="text-sm bg-gray-50 rounded-md p-3 mt-4 relative text-gray-500 font-semibold">
+            <span className="absolute top-1 right-2" onClick={() => handleAddressEdit(address)}>
               {isCart ? (
                 <button 
                   className="border-2 border-gray-400 text-gray-400 hover:text-gray-600

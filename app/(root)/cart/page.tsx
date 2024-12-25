@@ -42,7 +42,7 @@ const page = () => {
 
   useEffect(()=>{
     if (typeof window !== 'undefined' && window.location.href.includes('success')) {
-      if (clearCart) clearCart();
+       clearCart();
     }
   },[]);
 
