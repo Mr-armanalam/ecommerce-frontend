@@ -16,7 +16,7 @@ const Products = async () => {
     <>
       <div className="nav-center">
         <h2 className="text-[1.5em] font-bold">All products</h2>
-        <div className="grid-product">
+        <div className="grid-product mb-8">
           {products?.length > 0 && products.map((product, index) =>(
             <ProductBox key={index} {...product} />
           ))} 
