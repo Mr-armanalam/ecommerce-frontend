@@ -69,7 +69,7 @@ td{
 }
 
 .grid-product{
-  @apply grid grid-cols-5 gap-5;
+  @apply grid lg:grid-cols-5 max-sm:grid-cols-2 md:grid-cols-3 gap-5;
 }
 input{
   @apply outline-none border-b rounded-lg py-1 px-2 text-gray-600 ;

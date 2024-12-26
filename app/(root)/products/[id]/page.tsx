@@ -17,11 +17,11 @@ const ProductDetails = async (props: { params: Params }) => {
 
   return (
     <div className="nav-center">
-      <div className="grid grid-cols-5 gap-10 mt-10">
+      <div className="grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10 mt-10">
         <div className="bg-white col-span-2 p-10 center rounded-md">
           <ProductImages images={product.images} />
         </div>
-        <div className="col-span-3 ">
+        <div className="col-span-3 max-sm:pb-4">
           <h2 className="font-bold">{product.title}</h2>
           <p className="text-sm font-medium text-gray-700">
             {product.description}
