@@ -9,7 +9,7 @@ const page = async () => {
   return (
     <div className="nav-center">
       <h2>New Arrivals</h2>
-      <div className="grid grid-cols-5 gap-5 pb-3">
+      <div className="grid grid-cols-5 max-sm:grid-cols-2 max-md:grid-cols-3 gap-5 pb-3">
         {product.length > 0 &&
           product.map((p:any, index: number) => <ProductBox key={index} {...p} />)}
       </div>
