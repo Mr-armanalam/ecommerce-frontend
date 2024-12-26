@@ -3,8 +3,7 @@
 
 import { mongooseConnect } from "@/lib/mongoose";
 import { ClientUser } from "@/model/Clientuser.model";
-import { signIn } from "next-auth/react";
-import { NextResponse } from "next/server";
+
 
 export const getSignUp = async ({
   email,
@@ -29,17 +28,18 @@ export const getSignUp = async ({
         address: [],
       });
       if (!user) return;
-      console.log(email, password);
 
-      await signIn("credentials", {
-        email,
-        password,
-        callbackUrl: "/account",
-      });
-      return NextResponse.json("SignUpSuccess", { status: 200 });
+      return { message: "ok", status: 200 };
     }
   } catch (error: any) {
     console.log(error.message);
     throw new Error(error.message);
   }
 };
+
+// await signIn("credentials", {
+//   email,
+//   password,
+//   callbackUrl: "/account",
+// });
+// return NextResponse.json({message: "SignUpSuccess"}, { status: 200 });

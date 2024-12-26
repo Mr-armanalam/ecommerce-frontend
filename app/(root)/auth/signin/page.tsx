@@ -28,9 +28,15 @@ const SignIn = () => {
     const email = (event.target as HTMLFormElement).email.value;
     const password = (event.target as HTMLFormElement).password.value;
     if (email && password) {
-      await getSignUp({email, password});
+      const result = await getSignUp({email, password});
+      console.log(result);      
+      if (result?.message === 'ok') {
+        await signIn("credentials", { email, password, callbackUrl: "/account",});
+      }else {
+        console.log('something is wrong');       
+      }
     }
-    router.push("/account");
+    // router.push("/account");
   }
   
   const handleGoogleSignIn = () => {
