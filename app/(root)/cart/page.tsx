@@ -98,7 +98,7 @@ const page = () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-10 nav-center mt-10">
+    <div className="grid grid-cols-3 max-md:grid-cols-1 max-md:mb-2 max-md:gap-y-2 md:gap-10 nav-center mt-10">
       <div className="bg-white h-fit rounded-md col-span-2 p-8">
         <h2 className={`font-bold ${lora.className}`}>Cart</h2>
         {!cartProducts?.length ? (
@@ -108,7 +108,7 @@ const page = () => {
             <table>
               <thead>
                 <tr>
-                  <th className="w-[60%]">Product</th>
+                  <th className="md:w-[60%]">Product</th>
                   <th>Quantity</th>
                   <th>Price (USD)</th>
                 </tr>
@@ -124,7 +124,7 @@ const page = () => {
                           className="max-w-[80px] max-h-[80px]"
                         />
                       </div>
-                      <div className=" text-left w-7/12 ml-6">
+                      <div className=" text-left max-sm:hidden w-7/12 ml-6">
                         <div className="text-[1.2rem] text-gray-500 font-semibold">{product?.title}</div>
                         <div className="line-clamp-2 text-balance text-gray-400 text-[.8rem]">{product?.description}</div>
                       </div>
