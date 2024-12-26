@@ -20,7 +20,7 @@ const handler = NextAuth({
           if (credentials) {
             const user = await ClientUser.findOne({$and: [{ email: credentials.email, password: credentials.password}]});
             if (user) {
-              return { id: user._id, email: user.email, role: user.role, name: user?.name};
+              return { id: user._id, email: user.email, role: user?.role, name: user?.name};
             }
           }
           return null;
