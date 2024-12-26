@@ -12,11 +12,11 @@ const Featured = ({ product }: { product: props }) => {
   return (
     <div className="bg-primary-800 text-white py-8">
       <div className="nav-center">
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-8">
           <div className="grid-column">
             <div>
               <h1>{product?.title}</h1>
-              <p className="description">{product?.description}</p>
+              <p className="description ">{product?.description}</p>
               <div className="flex gap-2 mt-6">
                 <Link
                   href={"/products" + product?._id}
@@ -24,10 +24,6 @@ const Featured = ({ product }: { product: props }) => {
                 >
                   Read more
                 </Link>
-                {/* <button onClick={addFeaturedToCart} className="btn-primary1 btn_white_noOutline px-4 py-2" >
-                  <CartIcon className="fill-black size-5 mr-1"/>
-                  Add to cart
-                </button> */}
                 <CartButton
                   fill={"fill-black size-5"}
                   productId={product._id}
@@ -36,12 +32,12 @@ const Featured = ({ product }: { product: props }) => {
               </div>
             </div>
           </div>
-          <div className="grid-column">
-            <div className="flex pr-10">
+          <div className="grid-column max-sm:-order-1">
+            <div className="flex md:pr-10">
               <img
                 src="https://res.cloudinary.com/dfdgzoi7t/image/upload/v1734252785/product_1734252762572.webp"
                 alt="home product"
-                className="w-[85%] ml-auto"
+                className="w-[85%] max-md:w-[100%] sm:ml-auto"
               />
             </div>
           </div>
