@@ -2,8 +2,8 @@
 import { CartContext } from "@/context/CartContext";
 import { Lora } from "next/font/google";
 import Link from "next/link";
-import React, { useContext } from "react";
-import { HomeIcon } from "./icons";
+import React, { useContext, useState } from "react";
+import { HomeIcon, MenuIcon } from "./icons";
 
 export const lora = Lora({
   subsets: ["latin"],
@@ -12,22 +12,30 @@ export const lora = Lora({
 
 export default function Header() {  
   const {cartProducts} = useContext(CartContext);
+  const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
-    <header className="bg-primary-800">
+    <header className="bg-primary-800 ">
       <div className="nav-center">
         <div className="flex justify-between py-5">
-          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text
+          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text max-sm:relative max-sm:z-10
              ${lora.className} text-transparent text-xl font-bold `} href={"/"}
           > <HomeIcon />
             QuirkCart
           </Link>
-          <nav className="text-primary-300 flex gap-4">
+          <nav className={`text-primary-300 flex gap-4  ${mobileNavActive ? 'max-sm:flex-col' : 'max-sm:hidden'}
+          max-sm:fixed max-sm:top-0 max-sm:pt-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:p-5 max-sm:bg-primary-800`}>
             <Link href="/">Home</Link>
             <Link href="/products">All product</Link>
             <Link href="/categories">Categories</Link>
             <Link href={'/account'}>Account</Link>
             <Link href={'/cart'}>Cart ({cartProducts?.length})</Link>
           </nav>
+
+          <button onClick={() => setMobileNavActive(prev => !prev)} 
+            className="bg-transparent sm:hidden text-white max-sm:relative max-sm:z-10 "
+          >
+            <MenuIcon />
+          </button>
         </div>
       </div>
     </header>
