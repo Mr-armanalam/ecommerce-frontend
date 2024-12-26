@@ -64,7 +64,7 @@ const page = () => {
   };
   
   return (
-    <div className="grid overflow-y-auto grid-cols-3 gap-10 nav-center mt-10">
+    <div className="grid overflow-y-auto grid-cols-3 max-lg:grid-cols-1 max-lg:mb-2 max-lg:gap-y-2 lg:gap-10 nav-center mt-10">
       <div className="white_box">
         <Link
           href={process.env.NEXT_PUBLIC_ADMIN_URL || ""}
@@ -82,9 +82,9 @@ const page = () => {
             <table>
               <thead>
                 <tr>
-                  <th className="w-[52%]">Product</th>
-                  <th className="w-[32%]">Address</th>
-                  <th className="w-16">Paid</th>
+                  <th className="lg:w-[52%] max-lg:w-[40%]">Product</th>
+                  <th className="max-lg:w-[50%] lg:w-[32%]">Address</th>
+                  <th className="w-16 max-sm:hidden">Paid</th>
                   <th>Quantity</th>
                 </tr>
               </thead>
@@ -102,7 +102,7 @@ const page = () => {
                                 className="max-w-[80px] max-h-[80px]"
                               />
                             </div>
-                            <div className=" text-left w-8/12 ml-6">
+                            <div className=" text-left max-lg:hidden w-8/12 ml-6">
                               <div className="text-[1.2rem] text-gray-500 font-semibold">
                                 {product?.title}
                               </div>
@@ -121,7 +121,7 @@ const page = () => {
                         {order.landmark}, {order.country}
                       </div>
                     </td>
-                    <td className={`font-semibold relative ${order.paid ? 'text-green-700' : 'text-red-600'}`}>
+                    <td className={`font-semibold max-sm:hidden relative ${order.paid ? 'text-green-700' : 'text-red-600'}`}>
                       <p className="absolute top-16 ">
                         {order.paid ? "Yes" : "No"}
                       </p>

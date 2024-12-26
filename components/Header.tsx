@@ -17,12 +17,12 @@ export default function Header() {
     <header className="bg-primary-800 ">
       <div className="nav-center">
         <div className="flex justify-between py-5">
-          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text max-sm:relative max-sm:z-10
+          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text max-sm:relative max-sm:z-20
              ${lora.className} text-transparent text-xl font-bold `} href={"/"}
           > <HomeIcon />
             QuirkCart
           </Link>
-          <nav className={`text-primary-300 flex gap-4  ${mobileNavActive ? 'max-sm:flex-col' : 'max-sm:hidden'}
+          <nav className={`text-primary-300 flex gap-4  ${mobileNavActive ? 'max-sm:flex-col' : 'max-sm:hidden'} max-sm:z-10
           max-sm:fixed max-sm:top-0 max-sm:pt-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:p-5 max-sm:bg-primary-800`}>
             <Link href="/">Home</Link>
             <Link href="/products">All product</Link>
