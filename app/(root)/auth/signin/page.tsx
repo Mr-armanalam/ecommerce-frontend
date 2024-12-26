@@ -38,13 +38,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="center h-[90vh] ">
-      <div className="grid grid-cols-2 w-[72vw] h-fit p-16 rounded-3xl bg-white">
+    <div className="center h-[90vh] max-md:px-4 md:px-12 ">
+      <div className="grid grid-cols-2 max-sm:grid-cols-1 w-full lg:w-[72vw] h-fit max-sm:p-10 sm:p-16 rounded-3xl bg-white">
         <div className={`${lora.className}`}>
           <h1 >{isSignUp ? "Sign Up" : "Sign In"}</h1>
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="mt-2 text-gray-500 hover:text-gray-800 "
+            className="mt-2 text-gray-500 hover:text-gray-800 max-sm:hidden"
           >
             {isSignUp
               ? "Already have an account? Sign In"
@@ -81,6 +81,15 @@ const SignIn = () => {
             onClick={handleGoogleSignIn}
           >
             Sign In with Google
+          </button>
+          {/* extra for responsive */}
+          <button  
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="mt-2 text-gray-500 hover:text-gray-800 max-sm:pl-10 sm:hidden"
+          >
+            {isSignUp
+              ? "Already have an account? Sign In"
+              : "Don't have an account? Sign Up"}
           </button>
         </div>
       </div>
