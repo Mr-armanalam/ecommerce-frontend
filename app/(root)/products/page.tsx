@@ -1,16 +1,26 @@
+'use client'
 import ProductBox from "@/components/ProductBox";
 import { getAllProducts } from "@/lib/action/allProducts.action";
-import { Metadata } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 
+interface props {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  key?: number;
+}
 
-export const metadata:Metadata = {
-  title: "QuirkCart | Product",
-  description: "All Products",
-};
-
-const Products = async () => {
-  const products = await getAllProducts();
+const Products = () => {
+  const [products, setProducts] = React.useState<props[]>([]);
+  const handleGetAllProducts = async () => {
+    const fetchedProducts = await getAllProducts();
+    setProducts(fetchedProducts);
+  }
+  useEffect (() => {
+    handleGetAllProducts();
+  },[])
   
   return (
     <>

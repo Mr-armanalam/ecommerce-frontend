@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use server'
 import { Product } from "@/model/product";
 import { mongooseConnect } from "../mongoose";
 
