@@ -18,16 +18,25 @@ const handler = NextAuth({
         try {
           await mongooseConnect();
           if (credentials) {
-            const user = await ClientUser.findOne({$and: [{ email: credentials.email, password: credentials.password}]});
+            const user = await ClientUser.findOne({
+              $and: [
+                { email: credentials.email, password: credentials.password },
+              ],
+            });
             if (user) {
-              return { id: user._id, email: user.email, role: user?.role, name: user?.name};
+              return {
+                id: user._id,
+                email: user.email,
+                role: user?.role,
+                name: user?.name,
+              };
             }
           }
           return null;
-        } catch (error:any) {
+        } catch (error: any) {
           console.log(error.message);
           return null;
-        }      
+        }
       },
     }),
     GoogleProvider({
@@ -40,24 +49,24 @@ const handler = NextAuth({
     signIn: "/auth", // Custom sign-in page
   },
   callbacks: {
-    async signIn({ user }) { 
+    async signIn ({ user }) {
       await mongooseConnect();
-      const existingUser = await ClientUser.findOne({ email: user.email }); 
-      if (!existingUser) { 
-        const newuser = await ClientUser.create({ 
-          name: user.name, 
-          email: user.email, 
-          password: null, 
-          role: 'user',  
-          address: [], 
-        }); 
+      const existingUser = await ClientUser.findOne({ email: user.email });
+      if (!existingUser) {
+        const newuser = await ClientUser.create({
+          name: user.name,
+          email: user.email,
+          password: null,
+          role: "user",
+          address: [],
+        });
         user.id = newuser._id.toString();
       } else {
         user.id = existingUser._id.toString();
       }
-      return true; 
+      return true;
     },
-    async jwt({ token, user }) {
+    async jwt ({ token, user }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -66,7 +75,7 @@ const handler = NextAuth({
       }
       return token;
     },
-    async session({ session, token }) {
+    async session ({ session, token }) {
       if (token) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
@@ -75,10 +84,10 @@ const handler = NextAuth({
       }
       return session;
     },
-    async redirect({ url, baseUrl }) {
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
+    async redirect ({ url, baseUrl }) {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
   },
 });

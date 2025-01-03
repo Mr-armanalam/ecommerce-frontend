@@ -1,4 +1,5 @@
 'use client'
+import Searchbar from "@/components/client/Searchbar";
 import ProductBox from "@/components/ProductBox";
 import { getAllProducts } from "@/lib/action/allProducts.action";
 import React, { useEffect } from "react";
@@ -25,6 +26,7 @@ const Products = () => {
   return (
     <>
       <div className="nav-center">
+        <Searchbar />
         <h2 className="text-[1.5em] font-bold">All products</h2>
         <div className="grid-product mb-8">
           {products?.length > 0 && products.map((product, index) =>(

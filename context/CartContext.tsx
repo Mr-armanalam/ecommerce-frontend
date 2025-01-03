@@ -10,15 +10,15 @@ interface CreateContextType {
   clearCart: () => void;
 }
 
-export const CartContext = createContext<CreateContextType >(
-  {cartProducts: [],
+export const CartContext = createContext<CreateContextType>({
+  cartProducts: [],
   setCartProducts: () => {},
   addProduct: () => {},
   removeProduct: () => {},
-  clearCart: () => {},}
-);
+  clearCart: () => {},
+});
 
-export function CartContextProvider({ children }: { children: ReactNode }) {
+export function CartContextProvider ({ children }: { children: ReactNode }) {
   const [cartProducts, setCartProducts] = useState<string[]>([]);
 
   useEffect(() => {
@@ -32,11 +32,11 @@ export function CartContextProvider({ children }: { children: ReactNode }) {
     }
   }, [cartProducts]);
 
-  function addProduct(productId: string) {
+  function addProduct (productId: string) {
     setCartProducts((prev) => [...prev, productId]);
   }
 
-  function removeProduct(productId: string) {
+  function removeProduct (productId: string) {
     setCartProducts((prev) => {
       const position = prev.indexOf(productId);
       if (position !== -1) {
@@ -53,7 +53,13 @@ export function CartContextProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ cartProducts, setCartProducts, addProduct, removeProduct, clearCart }}
+      value={{
+        cartProducts,
+        setCartProducts,
+        addProduct,
+        removeProduct,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -34,9 +34,8 @@ const AddressShower = ({
   isCart?: boolean;
   prevAddress?: IAddresses[] | undefined;
 }) => {
-  const { data: session } = useSession();  
+  const { data: session } = useSession();
   const [addresses, setAddresses] = useState<IAddresses[]>([]);
-  
 
   const fetchAddresses = async () => {
     if (!session?.user?.id || addresses.length > 0) return;
@@ -49,41 +48,51 @@ const AddressShower = ({
   };
 
   useEffect(() => {
-    if(prevAddress?.length){
+    if (prevAddress?.length) {
       setAddresses(prevAddress);
-    }else{
+    } else {
       fetchAddresses();
     }
-  },[prevAddress?.length, session?.user]);
+  }, [prevAddress?.length, session?.user]);
 
   // useEffect(() => {
   //   fetchAddresses();
   // }, [session?.user]);
 
-  const handleAddressEdit = (address:IAddresses) => {
+  const handleAddressEdit = (address: IAddresses) => {
     setName(address.name);
     setEmail(address.email);
     setCity(address.city);
     setCountry(address.country);
     setPostalCode(address.postalCode);
     setLandmark(address.landmark);
-  }
+  };
 
   return (
     <div className="white_box mt-3">
       <h3 className={` ${lora.className} text-xl `}>Saved Address</h3>
       {addresses.length > 0 &&
         addresses.map((address, index) => (
-          <div key={index} className="text-sm bg-gray-50 rounded-md p-3 mt-4 relative text-gray-500 font-semibold">
-            <span className="absolute top-1 right-2" onClick={() => handleAddressEdit(address)}>
-              {isCart ? (
-                <button 
-                  className="border-2 border-gray-400 text-gray-400 hover:text-gray-600
-                   hover:border-gray-600 font-semibold py-1 px-3 rounded-lg  "
-                  >Make Payment</button>
-              ) 
-                : <EditIcon />
-              }
+          <div
+            key={index}
+            className="relative mt-4 rounded-md bg-gray-50 p-3 text-sm font-semibold text-gray-500"
+          >
+            <span
+              className="absolute right-2 top-1"
+              onClick={() => handleAddressEdit(address)}
+            >
+              {isCart
+                ? (
+                  <button
+                    className="rounded-lg border-2 border-gray-400 px-3
+                    py-1 font-semibold text-gray-400 hover:border-gray-600 hover:text-gray-600  "
+                  >
+                    Make Payment
+                  </button>
+                  )
+                : (
+                  <EditIcon />
+                  )}
             </span>
             <p>
               {address.name},<br />

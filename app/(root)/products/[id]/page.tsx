@@ -1,5 +1,5 @@
 import CartButton from "@/components/client/CartButton";
-import {ProductPropertes} from "@/components/client/ProductComponent";
+import { ProductPropertes } from "@/components/client/ProductComponent";
 import ProductImages from "@/components/ProductImages";
 import { productDatails } from "@/lib/action/productDetails.action";
 import { Metadata } from "next";
@@ -17,8 +17,8 @@ const ProductDetails = async (props: { params: Params }) => {
 
   return (
     <div className="nav-center">
-      <div className="grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10 mt-10">
-        <div className="bg-white col-span-2 p-10 center rounded-md">
+      <div className="mt-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
+        <div className="center col-span-2 rounded-md bg-white p-10">
           <ProductImages images={product.images} />
         </div>
         <div className="col-span-3 max-sm:pb-4">
@@ -26,9 +26,11 @@ const ProductDetails = async (props: { params: Params }) => {
           <p className="text-sm font-medium text-gray-700">
             {product.description}
           </p>
-          <h3 className="mt-4 font-bold text-gray-700 text-lg">Details</h3>
-          {product?.properties && <ProductPropertes properties={product?.properties} />}
-          <p className="text-2xl mt-4 font-bold text-gray-700">
+          <h3 className="mt-4 text-lg font-bold text-gray-700">Details</h3>
+          {product?.properties && (
+            <ProductPropertes properties={product?.properties} />
+          )}
+          <p className="mt-4 text-2xl font-bold text-gray-700">
             ${product.price}
           </p>
           <CartButton

@@ -4,7 +4,6 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { ClientUser } from "@/model/Clientuser.model";
 
-
 export const getSignUp = async ({
   email,
   password,

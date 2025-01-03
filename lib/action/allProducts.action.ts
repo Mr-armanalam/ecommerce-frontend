@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use server'
+"use server";
 import { Product } from "@/model/product";
 import { mongooseConnect } from "../mongoose";
 
@@ -18,6 +18,6 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
     return JSON.parse(JSON.stringify(products));
   } catch (error: any) {
     console.log(error.message);
-    return []; 
+    return [];
   }
-}
+};

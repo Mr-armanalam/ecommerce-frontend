@@ -19,7 +19,7 @@ const ProductBox = ({ _id, title, price, images }: props) => {
   const [isHover, setIsHover] = useState(false);
   const { addToWishlist, wishlistProduct } = useWishlist();
   const [iswishlist, setIsWishlist] = useState(false);
-  
+
   useEffect(() => {
     if (wishlistProduct.length > 0) {
       const found = wishlistProduct.find((product) => product === _id);
@@ -34,30 +34,33 @@ const ProductBox = ({ _id, title, price, images }: props) => {
   return (
     <div className="relative">
       <div
-        className={`bg-white p-5 h-[150px] flex items-center justify-center rounded-md ${isHover && "shadow-lg"}`}
+        className={`flex h-[150px] items-center justify-center rounded-md bg-white p-5 ${isHover && "shadow-lg"}`}
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <div className={`absolute top-2 right-2 z-10 text-gray-500 cursor-pointer ${isHover || iswishlist ? "block" : "hidden"}`} 
+        <div
+          className={`absolute right-2 top-2 z-10 cursor-pointer text-gray-500 ${isHover || iswishlist ? "block" : "hidden"}`}
           onClick={() => addToWishlist(_id)}
         >
-          <WishlistIcon className={`size-5 active:fill-black ${iswishlist && 'fill-gray-700'}`}/>
+          <WishlistIcon
+            className={`size-5 active:fill-black ${iswishlist && "fill-gray-700"}`}
+          />
         </div>
 
         <Link href={url}>
           <img
             src={images[0]}
             alt="new product"
-            className="max-w-[100%] max-h-[100px]"
+            className="max-h-[100px] max-w-[100%]"
           />
-        </Link>       
+        </Link>
       </div>
 
       <div className="mt-1.5">
         <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>
           {title}
         </Link>
-        <div className="flex items-center justify-between mt-0.5">
+        <div className="mt-0.5 flex items-center justify-between">
           <div className="text-[1.2rem] font-bold">${price}</div>
           <CartButton
             icon={false}
@@ -66,7 +69,6 @@ const ProductBox = ({ _id, title, price, images }: props) => {
           />
         </div>
       </div>
-
     </div>
   );
 };

@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { mongooseConnect } from '@/lib/mongoose';
-import { AdminUser } from '@/model/adminUser.model';
-import { Order } from '@/model/Order.model';
-import { Product } from '@/model/product';
-import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
-
+import { mongooseConnect } from "@/lib/mongoose";
+import { AdminUser } from "@/model/adminUser.model";
+import { Order } from "@/model/Order.model";
+import { Product } from "@/model/product";
+import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
 
 if (!process.env.STRIPE_SK) {
-  throw new Error('Missing STRIPE_SK environment variable');
+  throw new Error("Missing STRIPE_SK environment variable");
 }
 
 const stripe = new Stripe(process.env.STRIPE_SK);
@@ -22,7 +21,7 @@ export const config = {
   },
 };
 
-async function buffer(readable: ReadableStream<Uint8Array>) {
+async function buffer (readable: ReadableStream<Uint8Array>) {
   const reader = readable.getReader();
   const chunks = [];
   let result;
@@ -34,55 +33,62 @@ async function buffer(readable: ReadableStream<Uint8Array>) {
   return Buffer.concat(chunks);
 }
 
-export async function POST(req: NextRequest) {
+export async function POST (req: NextRequest) {
   if (!req.body) {
-    throw new Error('Missing request body');
+    throw new Error("Missing request body");
   }
   const buf = await buffer(req.body);
-  const sig = req.headers.get('stripe-signature');
+  const sig = req.headers.get("stripe-signature");
 
   let event: Stripe.Event;
 
   try {
-    await mongooseConnect(); /////////////
+    await mongooseConnect(); /// //////////
     event = stripe.webhooks.constructEvent(buf, sig!, endpointSecret!);
-  } catch (err:any) {
+  } catch (err: any) {
     console.error(` Webhook signature verification failed.`, err);
-    return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+    return NextResponse.json(
+      { error: `Webhook Error: ${err.message}` },
+      { status: 400 }
+    );
   }
 
   // Handle the event
   switch (event.type) {
-    case 'checkout.session.completed': {
-      const paymentData = event.data.object as any ;
-      const orderId = paymentData.metadata.orderId; 
+    case "checkout.session.completed": {
+      const paymentData = event.data.object as any;
+      const orderId = paymentData.metadata.orderId;
 
       const SproductsIds = paymentData.metadata.productsIds;
       const productsIds = JSON.parse(SproductsIds);
-      const products = await Product.find({ _id: { $in: productsIds } }); 
-      const revenueByAdmin : { [key: string]: number} = {};       
+      const products = await Product.find({ _id: { $in: productsIds } });
+      const revenueByAdmin: { [key: string]: number } = {};
 
-      products.forEach(product => { 
-        if (product.adminUser) { 
-          const adminId = product.adminUser.toString(); 
-          if (!revenueByAdmin[adminId]) { 
-            revenueByAdmin[adminId] = 0; 
-          } 
-          revenueByAdmin[adminId] += product.price; 
-        } 
-      }); 
-      
-      for (const [adminId, totalRevenue] of Object.entries(revenueByAdmin)) { 
-        try {           
-          await AdminUser.findByIdAndUpdate( adminId, { $inc: { totalRevenue } },{ new: true }  ); 
-        } catch (error) { 
-          console.error(`Error updating Admin ID ${adminId}:`, error); 
-        } 
-      }   
-      
-      const paid = paymentData.payment_status === 'paid';
+      products.forEach((product) => {
+        if (product.adminUser) {
+          const adminId = product.adminUser.toString();
+          if (!revenueByAdmin[adminId]) {
+            revenueByAdmin[adminId] = 0;
+          }
+          revenueByAdmin[adminId] += product.price;
+        }
+      });
+
+      for (const [adminId, totalRevenue] of Object.entries(revenueByAdmin)) {
+        try {
+          await AdminUser.findByIdAndUpdate(
+            adminId,
+            { $inc: { totalRevenue } },
+            { new: true }
+          );
+        } catch (error) {
+          console.error(`Error updating Admin ID ${adminId}:`, error);
+        }
+      }
+
+      const paid = paymentData.payment_status === "paid";
       if (paid && orderId) {
-        await Order.findByIdAndUpdate(orderId,{paid: true});
+        await Order.findByIdAndUpdate(orderId, { paid: true });
       }
       break;
     }
@@ -90,5 +96,5 @@ export async function POST(req: NextRequest) {
       console.log(`Unhandled event type ${event.type}`);
   }
 
-  return NextResponse.json({ received: true }, {status: 200});
+  return NextResponse.json({ received: true }, { status: 200 });
 }

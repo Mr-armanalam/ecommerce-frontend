@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import CartButton from "./client/CartButton";
 import React from "react";
@@ -10,17 +11,17 @@ interface props {
 
 const Featured = ({ product }: { product: props }) => {
   return (
-    <div className="bg-primary-800 text-white py-8">
+    <div className="bg-primary-800 py-8 text-white">
       <div className="nav-center">
-        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-8">
+        <div className="grid grid-cols-2 gap-8 max-sm:grid-cols-1">
           <div className="grid-column">
             <div>
               <h1>{product?.title}</h1>
               <p className="description ">{product?.description}</p>
-              <div className="flex gap-2 mt-6">
+              <div className="mt-6 flex gap-2">
                 <Link
                   href={"/products" + product?._id}
-                  className="btn-primary1 py-2 btn_white_Outline px-4"
+                  className="btn-primary1 btn_white_Outline px-4 py-2"
                 >
                   Read more
                 </Link>

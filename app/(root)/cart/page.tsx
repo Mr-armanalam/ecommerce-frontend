@@ -1,3 +1,5 @@
+/* eslint-disable multiline-ternary */
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import AddressShower from "@/components/client/AddressShower";
 import { lora } from "@/components/Header";
@@ -16,18 +18,18 @@ interface Product {
   properties: { [key: string]: string };
 }
 
-
-const page = () => {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext) ?? { cartProducts: [] };
+const Cart = () => {
+  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(
+    CartContext
+  ) ?? { cartProducts: [] };
   const [products, setProducts] = useState<Product[]>([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [landmark, setLandmark] = useState('');
-  const {data:session} = useSession();
-  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [landmark, setLandmark] = useState("");
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -35,17 +37,19 @@ const page = () => {
         const { product } = await getCartProduct(cartProducts);
         setProducts(product);
       })();
-    }else{
+    } else {
       setProducts([]);
     }
   }, [cartProducts]);
 
-  useEffect(()=>{
-    if (typeof window !== 'undefined' && window.location.href.includes('success')) {
-       clearCart();
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.href.includes("success")
+    ) {
+      clearCart();
     }
-  },[]);
-
+  }, []);
 
   const moreOfThisProduct = (productId: string) => {
     if (addProduct) {
@@ -61,17 +65,17 @@ const page = () => {
 
   const goToPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
-    const formData = new FormData(event.target as HTMLFormElement); 
-    formData.append('cartProducts', JSON.stringify(cartProducts));
-    if (session) formData.append('clientuser', session.user.id);
-  
-    await fetch('/api/checkout', 
-      { method: 'POST', 
-        body: formData
-      })
-      .then(response =>response.json())
-      .then(data => {
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    formData.append("cartProducts", JSON.stringify(cartProducts));
+    if (session) formData.append("clientuser", session.user.id);
+
+    await fetch("/api/checkout", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
         window.location.href = data.url;
       });
@@ -86,20 +90,25 @@ const page = () => {
     }
   }
 
-  if (typeof window !== 'undefined' && window.location.href.includes('success')) {
+  if (
+    typeof window !== "undefined" &&
+    window.location.href.includes("success")
+  ) {
     return (
-      <div className="grid grid-cols-3 gap-10 nav-center mt-10">
-        <div className="bg-white rounded-md col-span-2 p-8">
+      <div className="nav-center mt-10 grid grid-cols-3 gap-10">
+        <div className="col-span-2 rounded-md bg-white p-8">
           <h1 className="font-bold">Thanks for your order !</h1>
-          <p className="font-medium ml-2 text-gray-500">We will email you when your order will be sent.</p>
+          <p className="ml-2 font-medium text-gray-500">
+            We will email you when your order will be sent.
+          </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="grid grid-cols-3 max-md:grid-cols-1 max-md:mb-2 max-md:gap-y-2 md:gap-10 nav-center mt-10">
-      <div className="bg-white h-fit rounded-md col-span-2 p-8">
+    <div className="nav-center mt-10 grid grid-cols-3 max-md:mb-2 max-md:grid-cols-1 max-md:gap-y-2 md:gap-10">
+      <div className="col-span-2 h-fit rounded-md bg-white p-8">
         <h2 className={`font-bold ${lora.className}`}>Cart</h2>
         {!cartProducts?.length ? (
           <div className={lora.className}>Your cart is empty</div>
@@ -117,22 +126,26 @@ const page = () => {
                 {products?.map((product, index) => (
                   <tr key={index}>
                     <td className="flex ">
-                      <div className="w-[100px] h-[100px] p-3 shadow-md border border-gray-100 center rounded-md">
+                      <div className="center h-[100px] w-[100px] rounded-md border border-gray-100 p-3 shadow-md">
                         <img
                           src={product.images[0]}
                           alt="cart product"
-                          className="max-w-[80px] max-h-[80px]"
+                          className="max-h-[80px] max-w-[80px]"
                         />
                       </div>
-                      <div className=" text-left max-sm:hidden w-7/12 ml-6">
-                        <div className="text-[1.2rem] text-gray-500 font-semibold">{product?.title}</div>
-                        <div className="line-clamp-2 text-balance text-gray-400 text-[.8rem]">{product?.description}</div>
+                      <div className=" ml-6 w-7/12 text-left max-sm:hidden">
+                        <div className="text-[1.2rem] font-semibold text-gray-500">
+                          {product?.title}
+                        </div>
+                        <div className="line-clamp-2 text-balance text-[.8rem] text-gray-400">
+                          {product?.description}
+                        </div>
                       </div>
                     </td>
                     <td>
                       <button
                         onClick={() => lessOfThisProduct(product._id)}
-                        className="bg-gray-400 w-6 rounded text-center text-white pb-0.5 mr-1"
+                        className="mr-1 w-6 rounded bg-gray-400 pb-0.5 text-center text-white"
                       >
                         -
                       </button>
@@ -141,13 +154,18 @@ const page = () => {
                       </span>
                       <button
                         onClick={() => moreOfThisProduct(product?._id)}
-                        className=" bg-gray-400 w-6 rounded text-center text-white pb-0.5 ml-1"
+                        className=" ml-1 w-6 rounded bg-gray-400 pb-0.5 text-center text-white"
                         type="button"
                       >
                         +
                       </button>
                     </td>
-                    <td> ${cartProducts.filter((id) => id === product._id).length *product.price || "-"}</td>
+                    <td>
+                      {" "}
+                      $
+                      {cartProducts.filter((id) => id === product._id).length *
+                        product.price || "-"}
+                    </td>
                   </tr>
                 ))}
                 <tr>
@@ -162,20 +180,72 @@ const page = () => {
       </div>
       {!!cartProducts?.length && (
         <div>
-          <form onSubmit={goToPayment}
-            className="bg-white max-h-fit rounded-md col-auto p-8"
+          <form
+            onSubmit={goToPayment}
+            className="col-auto max-h-fit rounded-md bg-white p-8"
           >
             <h2 className={lora.className}>Order information</h2>
-            <input className="input-b" type="text" required placeholder="Name" value={name} name="name" onChange={(e) => setName(e.target.value)} />
-            <input className="input-b" type="email" required placeholder="Email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
+            <input
+              className="input-b"
+              type="text"
+              required
+              placeholder="Name"
+              value={name}
+              name="name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              className="input-b"
+              type="email"
+              required
+              placeholder="Email"
+              value={email}
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <div className="flex gap-4">
-              <input className="input-b" type="text" required placeholder="City" value={city} name="city" onChange={(e) => setCity(e.target.value)} />
-              <input className="input-b" type="number" required placeholder="Postel Code" value={postalCode} name="postalCode" onChange={(e) => setPostalCode(e.target.value)} />
+              <input
+                className="input-b"
+                type="text"
+                required
+                placeholder="City"
+                value={city}
+                name="city"
+                onChange={(e) => setCity(e.target.value)}
+              />
+              <input
+                className="input-b"
+                type="number"
+                required
+                placeholder="Postel Code"
+                value={postalCode}
+                name="postalCode"
+                onChange={(e) => setPostalCode(e.target.value)}
+              />
             </div>
-            <input className="input-b" type="text" required placeholder="Landmark" value={landmark} name="landmark" onChange={(e) => setLandmark(e.target.value)} />
-            <input className="input-b" type="text" required placeholder="Country" value={country} name="country" onChange={(e) => setCountry(e.target.value)} />
+            <input
+              className="input-b"
+              type="text"
+              required
+              placeholder="Landmark"
+              value={landmark}
+              name="landmark"
+              onChange={(e) => setLandmark(e.target.value)}
+            />
+            <input
+              className="input-b"
+              type="text"
+              required
+              placeholder="Country"
+              value={country}
+              name="country"
+              onChange={(e) => setCountry(e.target.value)}
+            />
             {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
-            <button type="submit" className="btn-primary1 bg-primary-800 rounded-md text-white btn_block mt-6 py-2">
+            <button
+              type="submit"
+              className="btn-primary1 btn_block mt-6 rounded-md bg-primary-800 py-2 text-white"
+            >
               Continue to payment
             </button>
           </form>
@@ -194,4 +264,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Cart;

@@ -21,8 +21,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout ({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>

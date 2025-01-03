@@ -3,15 +3,17 @@ import ProductBox from "@/components/ProductBox";
 import { getFeaturedProduct } from "@/lib/action/products.action";
 import React from "react";
 
-const page = async () => {  
+const page = async () => {
   const { newProducts: product } = await getFeaturedProduct();
 
   return (
     <div className="nav-center">
       <h2>New Arrivals</h2>
-      <div className="grid grid-cols-5 max-sm:grid-cols-2 max-md:grid-cols-3 gap-5 pb-3">
+      <div className="grid grid-cols-5 gap-5 pb-3 max-md:grid-cols-3 max-sm:grid-cols-2">
         {product.length > 0 &&
-          product.map((p:any, index: number) => <ProductBox key={index} {...p} />)}
+          product.map((p: any, index: number) => (
+            <ProductBox key={index} {...p} />
+          ))}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { CartContext } from "@/context/CartContext";
 import { Lora } from "next/font/google";
 import Link from "next/link";
@@ -8,32 +8,39 @@ import { HomeIcon, MenuIcon } from "./icons";
 export const lora = Lora({
   subsets: ["latin"],
   display: "swap",
-})
+});
 
-export default function Header() {  
-  const {cartProducts} = useContext(CartContext);
+export default function Header () {
+  const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
     <header className="bg-primary-800 ">
       <div className="nav-center">
         <div className="flex justify-between py-5">
-          <Link className={`bg-gradient-to-r from-gray-400 flex to-gray-200 bg-clip-text max-sm:relative max-sm:z-20
-             ${lora.className} text-transparent text-xl font-bold `} href={"/"}
-          > <HomeIcon />
+          <Link
+            className={`flex bg-gradient-to-r from-gray-400 to-gray-200 bg-clip-text max-sm:relative max-sm:z-20
+             ${lora.className} text-xl font-bold text-transparent `}
+            href={"/"}
+          >
+            {" "}
+            <HomeIcon />
             QuirkCart
           </Link>
-          <nav className={`text-primary-300 flex gap-4  ${mobileNavActive ? 'max-sm:flex-col' : 'max-sm:hidden'} max-sm:z-10
-          max-sm:fixed max-sm:top-0 max-sm:pt-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:p-5 max-sm:bg-primary-800 `}>
+          <nav
+            className={`flex gap-4 text-primary-300  ${mobileNavActive ? "max-sm:flex-col" : "max-sm:hidden"} max-sm:fixed
+          max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:top-0 max-sm:z-10 max-sm:bg-primary-800 max-sm:p-5 max-sm:pt-16 `}
+          >
             <Link href="/">Home</Link>
             <Link href="/products">All product</Link>
             <Link href="/wishlist">WishList</Link>
             <Link href="/categories">Categories</Link>
-            <Link href={'/account'}>Account</Link>
-            <Link href={'/cart'}>Cart ({cartProducts?.length})</Link>
+            <Link href={"/account"}>Account</Link>
+            <Link href={"/cart"}>Cart ({cartProducts?.length})</Link>
           </nav>
 
-          <button onClick={() => setMobileNavActive(prev => !prev)} 
-            className="bg-transparent sm:hidden text-white max-sm:relative max-sm:z-10 "
+          <button
+            onClick={() => setMobileNavActive((prev) => !prev)}
+            className="bg-transparent text-white max-sm:relative max-sm:z-10 sm:hidden "
           >
             <MenuIcon />
           </button>
@@ -42,8 +49,6 @@ export default function Header() {
     </header>
   );
 }
-
-
 
 // import Center from "./Center";
 // import styled from "styled-components";
