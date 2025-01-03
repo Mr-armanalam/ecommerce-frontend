@@ -50,3 +50,14 @@ export async function allOrderItems(clientuser: string){
     return { orderItems: [] };
   }
 }
+
+export const getWishlistProducts = async (wishlist: string[]) => {
+  try {
+    await mongooseConnect();    
+    const products = await Product.find({ _id: { $in: wishlist } });
+    return JSON.parse(JSON.stringify(products));
+  } catch (error: any) {
+    console.log(error.message);
+    return [];
+  }
+}

@@ -23,9 +23,10 @@ export default function Header() {
             QuirkCart
           </Link>
           <nav className={`text-primary-300 flex gap-4  ${mobileNavActive ? 'max-sm:flex-col' : 'max-sm:hidden'} max-sm:z-10
-          max-sm:fixed max-sm:top-0 max-sm:pt-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:p-5 max-sm:bg-primary-800`}>
+          max-sm:fixed max-sm:top-0 max-sm:pt-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:p-5 max-sm:bg-primary-800 `}>
             <Link href="/">Home</Link>
             <Link href="/products">All product</Link>
+            <Link href="/wishlist">WishList</Link>
             <Link href="/categories">Categories</Link>
             <Link href={'/account'}>Account</Link>
             <Link href={'/cart'}>Cart ({cartProducts?.length})</Link>

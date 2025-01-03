@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import { SessionProvider } from "next-auth/react";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -26,8 +27,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>
         <CartContextProvider>
-          <Header />
-          <SessionProvider>{children}</SessionProvider>
+          <WishlistProvider>
+            <Header />
+            <SessionProvider>{children}</SessionProvider>
+          </WishlistProvider>
         </CartContextProvider>
       </body>
     </html>

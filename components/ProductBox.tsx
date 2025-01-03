@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CartButton from "./client/CartButton";
 import { WishlistIcon } from "./icons";
+import { useWishlist } from "@/context/WishlistContext";
 
 interface props {
   _id: string;
@@ -10,11 +11,25 @@ interface props {
   description: string;
   price: number;
   images: string[];
+  keys?: number;
 }
 
 const ProductBox = ({ _id, title, price, images }: props) => {
   const url = `/products/${_id}`;
   const [isHover, setIsHover] = useState(false);
+  const { addToWishlist, wishlistProduct } = useWishlist();
+  const [iswishlist, setIsWishlist] = useState(false);
+  
+  useEffect(() => {
+    if (wishlistProduct.length > 0) {
+      const found = wishlistProduct.find((product) => product === _id);
+      if (found) {
+        setIsWishlist(true);
+      } else {
+        setIsWishlist(false);
+      }
+    }
+  }, [wishlistProduct]);
 
   return (
     <div className="relative">
@@ -23,8 +38,10 @@ const ProductBox = ({ _id, title, price, images }: props) => {
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <div className={`absolute top-2 right-2 z-10 text-gray-500 ${isHover ? "block" : "hidden"}`} >
-          <WishlistIcon className="size-5 active:fill-black" />
+        <div className={`absolute top-2 right-2 z-10 text-gray-500 cursor-pointer ${isHover || iswishlist ? "block" : "hidden"}`} 
+          onClick={() => addToWishlist(_id)}
+        >
+          <WishlistIcon className={`size-5 active:fill-black ${iswishlist && 'fill-gray-700'}`}/>
         </div>
 
         <Link href={url}>

@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface ContextProps {
   wishlistProduct: string[];
@@ -31,6 +31,10 @@ export const WishlistProvider = ({children}:{children:ReactNode})=> {
     }, [wishlistProduct]);
   
     function addToWishlist(productId: string) {
+      if (wishlistProduct.includes(productId)) {
+        removeFromWishlist(productId);
+        return;
+      }
       setWishlistProduct((prev) => [...prev, productId]);
     }
   
@@ -55,4 +59,6 @@ export const WishlistProvider = ({children}:{children:ReactNode})=> {
   )
 }
 
-export default WishlistContext;
+export const useWishlist = () => {
+  return useContext(WishlistContext);
+}
