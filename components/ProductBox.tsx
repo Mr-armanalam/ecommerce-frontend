@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import CartButton from "./client/CartButton";
+import { WishlistIcon } from "./icons";
 
 interface props {
   _id: string;
@@ -12,19 +14,28 @@ interface props {
 
 const ProductBox = ({ _id, title, price, images }: props) => {
   const url = `/products/${_id}`;
+  const [isHover, setIsHover] = useState(false);
 
   return (
-    <div>
-      <Link
-        className="bg-white p-5 h-[150px] flex items-center justify-center rounded-md"
-        href={url}
+    <div className="relative">
+      <div
+        className={`bg-white p-5 h-[150px] flex items-center justify-center rounded-md ${isHover && "shadow-lg"}`}
+        onMouseOver={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
       >
-        <img
-          src={images[0]}
-          alt="new product"
-          className="max-w-[100%] max-h-[100px]"
-        />
-      </Link>
+        <div className={`absolute top-2 right-2 z-10 text-gray-500 ${isHover ? "block" : "hidden"}`} >
+          <WishlistIcon className="size-5 active:fill-black" />
+        </div>
+
+        <Link href={url}>
+          <img
+            src={images[0]}
+            alt="new product"
+            className="max-w-[100%] max-h-[100px]"
+          />
+        </Link>       
+      </div>
+
       <div className="mt-1.5">
         <Link className="text-[0.9rem] font-medium text-primary-850" href={url}>
           {title}
@@ -38,6 +49,7 @@ const ProductBox = ({ _id, title, price, images }: props) => {
           />
         </div>
       </div>
+
     </div>
   );
 };
