@@ -1,4 +1,5 @@
 'use client';
+import { lora } from "@/components/Header";
 import ProductBox from "@/components/ProductBox";
 import { useWishlist } from "@/context/WishlistContext";
 import { getWishlistProducts } from "@/lib/action/products.action";
@@ -15,7 +16,7 @@ interface props {
 }
 
 const Wishlist = () => {
-  const { wishlistProduct } = useWishlist();
+  const { wishlistProduct, clearWishlist } = useWishlist();
   const [products, setProducts] = useState<props[]>([])
 
   async function handleWishlist(product: string[]) {
@@ -26,11 +27,13 @@ const Wishlist = () => {
     if (wishlistProduct?.length > 0){      
       handleWishlist(wishlistProduct);
     }
-  },[wishlistProduct])
+  },[wishlistProduct])  
   
   return (
     <>
-      <div className="nav-center">
+      {products.length > 0 ? (
+        <div className="nav-center relative">
+          <div className="absolute top-0 right-12 cursor-pointer" onClick={()=> clearWishlist()}>clear </div>
         <h2 className="text-[1.5em] font-bold">Your WishList</h2>
         <div className="grid-product mb-8">
           {products?.length > 0 &&
@@ -38,7 +41,11 @@ const Wishlist = () => {
               <ProductBox key = {index} {...product} />
             ))}
         </div>
-      </div>
+      </div>):(
+        <div className="white_box w-7/12 m-8">
+          <h2 className={`${lora.className} text-gray-700 `}>Your Wishlist is empty</h2>
+        </div>
+      )}
     </>
   );
 };

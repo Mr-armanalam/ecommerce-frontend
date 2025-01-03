@@ -1,16 +1,17 @@
 'use client';
+import { useRouter } from "next/navigation";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface ContextProps {
   wishlistProduct: string[];
-  clearCart: () => void;
+  clearWishlist: () => void;
   setWishlistProduct?: (wishlistProduct: string) => void;
   addToWishlist: (product: string) => void;
   removeFromWishlist: (productId: string) => void;
 }
 
 export const WishlistContext = createContext<ContextProps>({
-  clearCart: () => {},
+  clearWishlist: () => {},
   wishlistProduct: [],
   addToWishlist: () => {},
   removeFromWishlist: () => {},
@@ -18,15 +19,18 @@ export const WishlistContext = createContext<ContextProps>({
 
 export const WishlistProvider = ({children}:{children:ReactNode})=> {
     const [wishlistProduct, setWishlistProduct] = useState<string[]>([]);
+    const router = useRouter();
   
     useEffect(() => {
-      const storedCart = JSON.parse(localStorage.getItem("wishlist") || "[]");
-      setWishlistProduct(storedCart);
+      const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+      setWishlistProduct(wishlist);
     }, []);
   
     useEffect(() => {
       if (wishlistProduct.length > 0) {
         localStorage.setItem("wishlist", JSON.stringify(wishlistProduct));
+      }else{
+        localStorage.removeItem("wishlist");
       }
     }, [wishlistProduct]);
   
@@ -34,8 +38,9 @@ export const WishlistProvider = ({children}:{children:ReactNode})=> {
       if (wishlistProduct.includes(productId)) {
         removeFromWishlist(productId);
         return;
+      }else{
+        setWishlistProduct((prev) => [...prev, productId]);
       }
-      setWishlistProduct((prev) => [...prev, productId]);
     }
   
     function removeFromWishlist(productId: string) {
@@ -43,17 +48,19 @@ export const WishlistProvider = ({children}:{children:ReactNode})=> {
         const position = prev.indexOf(productId);
         if (position !== -1) {
           return prev.filter((_, index) => index !== position);
-        } else {
+        }else {
           return prev;
         }
       });
     }
   
-    function clearCart () {
-      setWishlistProduct([]);
+    function clearWishlist () {      
+      localStorage.removeItem("wishlist");
+      setWishlistProduct([]); 
+      router.push('/products');
     }
   return (
-    <WishlistContext.Provider value={{wishlistProduct, clearCart, addToWishlist, removeFromWishlist}}>
+    <WishlistContext.Provider value={{wishlistProduct, clearWishlist, addToWishlist, removeFromWishlist}}>
       {children}
     </WishlistContext.Provider>
   )
