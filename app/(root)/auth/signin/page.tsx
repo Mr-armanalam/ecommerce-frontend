@@ -3,12 +3,10 @@
 import { lora } from "@/components/Header";
 import { getSignUp } from "@/lib/action/getSignup.action";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 
 const SignIn = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const router = useRouter();
 
   const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +18,6 @@ const SignIn = () => {
       password,
       callbackUrl: "/account",
     });}
-    router.push("/account");
   };
 
   const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
