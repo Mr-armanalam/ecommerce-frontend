@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -16,6 +17,7 @@ interface props {
 
 const ProductBox = ({ _id, title, price, images }: props) => {
   const url = `/products/${_id}`;
+
   const [isHover, setIsHover] = useState(false);
   const { addToWishlist, wishlistProduct } = useWishlist();
   const [iswishlist, setIsWishlist] = useState(false);
@@ -47,7 +49,7 @@ const ProductBox = ({ _id, title, price, images }: props) => {
           />
         </div>
 
-        <Link href={url}>
+        <Link href={`/products/${_id}`}>
           <img
             src={images[0]}
             alt="new product"
@@ -74,38 +76,3 @@ const ProductBox = ({ _id, title, price, images }: props) => {
 };
 
 export default ProductBox;
-
-// import styled from "styled-components";
-// import Button from "./Button";
-// const ProductWrapper = styled.div``;
-// const WhiteBox = styled(Link)`
-//   background-color: #fff;
-//   padding: 20px;
-//   height: 150px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   border-radius: 10px;
-//   img {
-//     max-width: 100%;
-//     max-height: 100px;
-//   }
-// `;
-// const Title = styled(Link)`
-//   font-size: 0.9rem;
-//   font-weight: 500;
-//   color: #333;
-// `;
-// const ProductInfoBox = styled.div`
-//   margin-top: 5px;
-// `;
-// const PriceRow = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin-top: 2px;
-// `;
-// const Price = styled.div`
-//   font-size: 1.2rem;
-//   font-weight: bold;
-// `;
