@@ -43,7 +43,7 @@ const Searchbar = ({ isOpen, setIsOpen }: props) => {
   }, [search, pathname, router, searchParams, query]);
   return (
     <div
-      className="flex flex-col items-center"
+      className="flex flex-col relative items-center"
       onClick={() => setIsOpen(false)}
     >
       <div

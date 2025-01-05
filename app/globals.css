@@ -89,6 +89,17 @@ input{
 body {
   @apply scroll_bar;
 }
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+  .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+}
+}
+
+
 /* a{
   @apply sm:block;
 } */

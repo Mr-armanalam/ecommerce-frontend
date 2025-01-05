@@ -18,15 +18,23 @@ const SearchResult = () => {
     handleSearchProducts();
   }, [searchQuery]);
   return (
-    // <div className='w-[47.5rem] bg-white'>
-    <div className="w-[47.6rem] rounded-b-2xl border-x-2 border-b-2 border-gray-500 bg-primary-100 p-4">
-      <h3 className="mb-2 text-xl font-bold text-gray-500">Results:</h3>
+    <div className="no-scrollbar absolute top-14 z-40 max-h-96 w-[47.6rem] overflow-y-auto rounded-b-2xl border-x-2 border-b-2 border-gray-500 bg-[#222] p-4">
+      <div className="flex justify-between">
+        <h3 className="mb-3 text-xl font-bold text-gray-200">Results:</h3>
+        <span className="text-sm font-semibold text-gray-200">
+          {searchList?.length} results
+        </span>
+      </div>
       {searchList?.length > 0 && (
-        <div>
+        <div className="flex flex-col gap-2">
           {searchList.map((product: any, index: number) => (
-            <div key={index}>
-              <Link href={`/products/${product?._id}`}>{product?.title}</Link>
-            </div>
+            <Link
+              href={`/products/${product?.id}`}
+              key={index}
+              className="cursor-pointer rounded-md p-1.5 text-sm text-gray-200 hover:bg-gray-700 hover:text-white"
+            >
+              <span>{product?.title}</span>
+            </Link>
           ))}
         </div>
       )}
