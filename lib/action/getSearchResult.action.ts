@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use server'
+"use server";
 import { AdminUser } from "@/model/adminUser.model";
 import { mongooseConnect } from "../mongoose";
 import { Product } from "@/model/product";
@@ -13,23 +13,22 @@ export async function searchProducts (params: SearchParams) {
   try {
     await mongooseConnect();
     const { query, type } = params;
-    console.log(query + "hi" + type);
 
     const regexQuery = { $regex: query, $options: "i" };
     const productQuery: any = {
       $or: [{ title: regexQuery }, { description: regexQuery }],
     };
 
+    let productResults = [];
     if (type === "admin") {
       const matchingAdminUsers = await AdminUser.find({
         name: regexQuery,
       });
-
       const adminUserIds = matchingAdminUsers.map((admin) => admin._id);
-      productQuery.adminUser = { $in: adminUserIds };
+      productResults = await Product.find({ adminUser: { $in: adminUserIds } });
+    } else {
+      productResults = await Product.find(productQuery);
     }
-
-    const productResults = await Product.find(productQuery);
 
     const Results = productResults.map((product) => ({
       title: product.title,
@@ -49,3 +48,14 @@ export async function searchProducts (params: SearchParams) {
     throw error;
   }
 }
+
+// if (type === "admin") {
+//   const matchingAdminUsers = await AdminUser.find({
+//     name: regexQuery,
+//   });
+//   const adminUserIds = matchingAdminUsers.map((admin) => admin._id);
+//   productQuery.adminUser = { $in: adminUserIds };
+// }
+
+// const productResults = await Product.find(productQuery);
+// console.log(productQuery);

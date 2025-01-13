@@ -12,10 +12,11 @@ const SearchResult = () => {
   const router = useRouter();
   const [searchList, setSearchList] = useState<string[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const type = searchParams.get("type");
   const searchQuery = searchParams.get("q") ?? "";
 
   const handleSearchProducts = useCallback(async () => {
-    const fetchedProducts = await searchProducts({ query: searchQuery });
+    const fetchedProducts = await searchProducts({ query: searchQuery, type });
     setSearchList(JSON.parse(fetchedProducts));
   }, [searchQuery]);
 

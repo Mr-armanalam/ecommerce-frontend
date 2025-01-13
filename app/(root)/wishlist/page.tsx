@@ -34,7 +34,7 @@ const Wishlist = () => {
         ? (
           <div className="nav-center relative">
             <div
-              className="absolute right-12 top-0 cursor-pointer"
+              className="absolute right-12 top-0 cursor-pointer text-lg font-bold text-gray-700"
               onClick={() => clearWishlist()}
             >
               clear{" "}
