@@ -1,5 +1,6 @@
 "use client";
 import { lora } from "@/components/Header";
+import { ClearIcon } from "@/components/icons";
 import ProductBox from "@/components/ProductBox";
 import { useWishlist } from "@/context/WishlistContext";
 import { getWishlistProducts } from "@/lib/action/products.action";
@@ -34,10 +35,11 @@ const Wishlist = () => {
         ? (
           <div className="nav-center relative">
             <div
-              className="absolute right-12 top-0 cursor-pointer text-lg font-bold text-gray-700"
+              className="absolute right-12 top-0 flex cursor-pointer items-center justify-center text-lg font-bold text-gray-700"
               onClick={() => clearWishlist()}
             >
-              clear{" "}
+              <ClearIcon className="size-5" />
+              {" "}clear
             </div>
             <h2 className="text-[1.5em] font-bold">Your WishList</h2>
             <div className="grid-product mb-8">
