@@ -44,7 +44,7 @@ const Searchbar = ({ isOpen, setIsOpen }: props) => {
   return (
     <div
       className="flex flex-col relative items-center"
-      onClick={() => setIsOpen(false)}
+      // onClick={() => setIsOpen(false)}
     >
       <div
         className={`mt-4 flex h-10 ${isOpen ? "rounded-t-3xl border-b-gray-400" : "rounded-full"} border-2 border-gray-500 bg-primary-100`}
