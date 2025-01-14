@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import React, { ReactNode } from "react";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 
 export const metadata: Metadata = {
-  title: "QuirkCart",
+  title: "QuirkCart | Categories",
   description: "Do you need something, Let's buy together",
   applicationName: "QuirkCart",
   keywords: [
@@ -17,11 +19,13 @@ export const metadata: Metadata = {
   icons: "qlogo.svg",
 };
 
-const Layout = ({ children }: {children:ReactNode}) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
-    {children}
-    </>
+    <SidebarProvider>
+      <AppSidebar />
+        <SidebarTrigger />
+        {children}
+    </SidebarProvider>
   );
 };
 
