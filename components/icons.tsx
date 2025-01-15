@@ -21,9 +21,13 @@ export const CartIcon = ({
       />
     </svg>
   );
-}
+};
 
-export const HomeIcon = () => {
+export const HomeIcon = ({
+  className = "mr-0.5 size-6 text-gray-400",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +35,7 @@ export const HomeIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="mr-0.5 size-6 text-gray-400"
+      className={className}
     >
       <path
         strokeLinecap="round"
@@ -40,7 +44,7 @@ export const HomeIcon = () => {
       />
     </svg>
   );
-}
+};
 
 export const EditIcon = () => {
   return (
@@ -59,7 +63,7 @@ export const EditIcon = () => {
       />
     </svg>
   );
-}
+};
 
 export const MenuIcon = ({
   className = "size-6",
@@ -82,7 +86,7 @@ export const MenuIcon = ({
       />
     </svg>
   );
-}
+};
 
 export const WishlistIcon = ({
   className = "size-5",

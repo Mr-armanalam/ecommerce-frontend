@@ -14,7 +14,7 @@ export default function Header () {
   const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
-    <header className="bg-primary-800 ">
+    <header className="relative z-40 bg-primary-800">
       <div className="nav-center">
         <div className="flex justify-between py-5">
           <Link

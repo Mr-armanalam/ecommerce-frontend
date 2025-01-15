@@ -88,6 +88,7 @@ input{
 }
 body {
   @apply scroll_bar;
+  /* @apply overflow-hidden; */
 }
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
