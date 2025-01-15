@@ -27,6 +27,7 @@ import {
 } from "./ui/collapsible";
 import { HomeIcon } from "./icons";
 import { getCategories } from "@/lib/action/getCategories.action";
+import { Checkbox } from "./ui/checkbox";
 
 // const items = [
 //   {
@@ -59,10 +60,17 @@ interface prop {
 }
 export function AppSidebar () {
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
+  const [isChildChecked, setIsChildChecked] = useState<Record<string, boolean>>({});
   const [items, setItems] = useState<Array<prop>>([]);
   const { state } = useSidebar();
   // console.log(state);
 
+  const toggleChiledChecked = (title: string) => {
+    setIsChildChecked((prevStates) => ({
+      ...prevStates,
+      [title]: !prevStates[title],
+    }));
+  };
   const toggleOpen = (title: string) => {
     setOpenStates((prevStates) => ({
       ...prevStates,
@@ -119,8 +127,13 @@ export function AppSidebar () {
                       {item.children.map((child, i) => (
                         <SidebarMenuSubItem key={i}>
                            <SidebarMenuButton>
+                             <Checkbox
+                             checked={isChildChecked[child.name]}
+                             onCheckedChange={() => toggleChiledChecked(child.name)}
+                             />
                              {child.name}
                            </SidebarMenuButton>
+
                              {/* {child?.properties.map((prop, i) => (
                               <CollapsibleContent key={i}>
                               <SidebarMenuSub>
