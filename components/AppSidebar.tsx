@@ -28,6 +28,8 @@ import {
 import { HomeIcon } from "./icons";
 import { getCategories } from "@/lib/action/getCategories.action";
 import { Checkbox } from "./ui/checkbox";
+import { formUrlQuery } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // const items = [
 //   {
@@ -59,6 +61,8 @@ interface prop {
   children: Array<prop>;
 }
 export function AppSidebar () {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
   const [isChildChecked, setIsChildChecked] = useState<Record<string, boolean>>({});
   const [items, setItems] = useState<Array<prop>>([]);
@@ -85,6 +89,48 @@ export function AppSidebar () {
     }
     fetchCategory();
   }, [])
+
+  useEffect(() => {
+    const updateCategoryWithDebounceFn = setTimeout(() => {
+      if (isChildChecked) {
+        const newUrl = formUrlQuery({
+          params: searchParams.toString(),
+          key: 'ct',
+          value: Object.keys(isChildChecked).filter((title) => isChildChecked[title]).join(','),
+        })
+        router.push(newUrl, { scroll: false })
+      }
+    }, 300);
+
+    return () => clearTimeout(updateCategoryWithDebounceFn);
+  }, [searchParams, router, isChildChecked]);
+
+  //  useEffect(() => {
+  //     const delayDebounceFn = setTimeout(() => {
+  //       if (search) {
+  //         const newUrl = formUrlQuery({
+  //           params: searchParams.toString(),
+  //           key: "q",
+  //           value: search,
+  //         });
+  //         setIsOpen(true);
+
+  //         router.push(newUrl, { scroll: false });
+  //       } else {
+  //         if (query) {
+  //           const newUrl = removeKeysFromQuery({
+  //             params: searchParams.toString(),
+  //             keysToRemove: ["q", "type"],
+  //           });
+  //           router.push(newUrl, { scroll: false });
+  //         }
+  //       }
+  //     }, 300);
+
+  //     return () => clearTimeout(delayDebounceFn);
+  //   }, [search, pathname, router, searchParams, query]);
+
+  console.log(isChildChecked);
 
   return (
     <Sidebar collapsible="icon" className={`${lora.className}`}>
@@ -143,7 +189,8 @@ export function AppSidebar () {
                                 </SidebarMenuSubItem>
                               </SidebarMenuSub>
                              </CollapsibleContent>))} */}
-                        </SidebarMenuSubItem>))}
+                        </SidebarMenuSubItem>
+                      ))}
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </SidebarMenuItem>
