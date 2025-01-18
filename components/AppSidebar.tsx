@@ -146,8 +146,8 @@ export function AppSidebar () {
                         <SidebarMenuSubItem key={i}>
                            <SidebarMenuButton>
                              <Checkbox
-                             checked={isChildChecked[child.name]}
-                             onCheckedChange={() => toggleChiledChecked(child.name)}
+                             checked={isChildChecked[child._id]}
+                             onCheckedChange={() => toggleChiledChecked(child._id)}
                              />
                              {child.name}
                            </SidebarMenuButton>

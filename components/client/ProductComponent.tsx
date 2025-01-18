@@ -12,7 +12,7 @@ export const ProductPropertes = ({
     <div className="text-sm text-gray-700">
       {productPropertes &&
         productPropertes.reverse().map((product, index) => (
-          <p key={index}>
+          <p key={index} className="font-semibold text-gray-600">
             {product}: {properties[product]}
           </p>
         ))}
