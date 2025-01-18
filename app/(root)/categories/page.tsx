@@ -1,11 +1,17 @@
+"use client";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const Categories = () => {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("ct");
+
+  console.log(searchQuery?.split(","));
   return (
     <>
-      <div>hkkh</div>
+      <div>jkj</div>
     </>
   );
 };
 
-export default page;
+export default Categories;

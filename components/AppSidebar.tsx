@@ -67,7 +67,6 @@ export function AppSidebar () {
   const [isChildChecked, setIsChildChecked] = useState<Record<string, boolean>>({});
   const [items, setItems] = useState<Array<prop>>([]);
   const { state } = useSidebar();
-  // console.log(state);
 
   const toggleChiledChecked = (title: string) => {
     setIsChildChecked((prevStates) => ({
@@ -96,7 +95,7 @@ export function AppSidebar () {
         const newUrl = formUrlQuery({
           params: searchParams.toString(),
           key: 'ct',
-          value: Object.keys(isChildChecked).filter((title) => isChildChecked[title]).join(','),
+          value: Object.keys(isChildChecked).filter((title) => isChildChecked[title]).join(',').toLowerCase(),
         })
         router.push(newUrl, { scroll: false })
       }
@@ -104,33 +103,6 @@ export function AppSidebar () {
 
     return () => clearTimeout(updateCategoryWithDebounceFn);
   }, [searchParams, router, isChildChecked]);
-
-  //  useEffect(() => {
-  //     const delayDebounceFn = setTimeout(() => {
-  //       if (search) {
-  //         const newUrl = formUrlQuery({
-  //           params: searchParams.toString(),
-  //           key: "q",
-  //           value: search,
-  //         });
-  //         setIsOpen(true);
-
-  //         router.push(newUrl, { scroll: false });
-  //       } else {
-  //         if (query) {
-  //           const newUrl = removeKeysFromQuery({
-  //             params: searchParams.toString(),
-  //             keysToRemove: ["q", "type"],
-  //           });
-  //           router.push(newUrl, { scroll: false });
-  //         }
-  //       }
-  //     }, 300);
-
-  //     return () => clearTimeout(delayDebounceFn);
-  //   }, [search, pathname, router, searchParams, query]);
-
-  console.log(isChildChecked);
 
   return (
     <Sidebar collapsible="icon" className={`${lora.className}`}>
