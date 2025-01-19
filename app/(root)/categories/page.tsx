@@ -2,17 +2,29 @@
 "use client";
 import CartButton from "@/components/client/CartButton";
 import { ProductPropertes } from "@/components/client/ProductComponent";
+import { WishlistIcon } from "@/components/icons";
+import { useWishlist } from "@/context/WishlistContext";
 import { getAllProducts } from "@/lib/action/allProducts.action";
 import { allProductsByCategory } from "@/lib/action/getAllProductsByCatg";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Categories = () => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("ct");
 
+  const { addToWishlist, wishlistProduct } = useWishlist();
+  const [iswishlist, setIsWishlist] = useState<Record<string, boolean>>({});
   const [products, setProducts] = React.useState<any[]>([]);
+
+  const handleAddToWishlist = (id: string) => {
+    addToWishlist(id);
+    setIsWishlist((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
   useEffect(() => {
     if (searchQuery) {
       (async () => {
@@ -29,6 +41,8 @@ const Categories = () => {
     }
   }, [searchParams, searchQuery]);
 
+  console.log(wishlistProduct);
+
   return (
     <>
       <div className="pb-8">
@@ -36,7 +50,15 @@ const Categories = () => {
           products.map((product: any, i) => (
             <div key={i} className="nav-center">
               <div className="mt-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
-                <div className="center col-span-2 rounded-md bg-white p-10">
+                <div className="center relative col-span-2 rounded-md bg-white p-10">
+                  <div
+                    className={`absolute right-2 top-2 z-10 cursor-pointer text-gray-500 `}
+                    onClick={() => handleAddToWishlist(product._id)}
+                  >
+                    <WishlistIcon
+                      className={`size-5 ${iswishlist[product._id] && "fill-gray-700"}`}
+                    />
+                  </div>
                   <Image
                     src={product.images[0]}
                     alt="product"
