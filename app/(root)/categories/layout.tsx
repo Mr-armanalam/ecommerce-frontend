@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 
@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <SidebarProvider>
       <AppSidebar />
         <SidebarTrigger />
-        {children}
+        <Suspense>{children}</Suspense>
     </SidebarProvider>
   );
 };
