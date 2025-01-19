@@ -23,8 +23,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-        <SidebarTrigger />
-        <Suspense>{children}</Suspense>
+      <SidebarTrigger />
+      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>{" "}
     </SidebarProvider>
   );
 };
