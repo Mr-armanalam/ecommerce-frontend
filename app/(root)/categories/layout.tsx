@@ -21,11 +21,13 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarTrigger />
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>{" "}
-    </SidebarProvider>
+    <Suspense>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarTrigger />
+        {children}
+      </SidebarProvider>
+    </Suspense>
   );
 };
 
