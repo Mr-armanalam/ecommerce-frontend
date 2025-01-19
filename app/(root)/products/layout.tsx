@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const ProductsLayout = ({ children }: { children: ReactNode }) => {
-  return <Suspense>{children}</Suspense>;
+  return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
 };
 
 export default ProductsLayout;
