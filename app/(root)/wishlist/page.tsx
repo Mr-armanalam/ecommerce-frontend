@@ -51,7 +51,7 @@ const Wishlist = () => {
           </div>
           )
         : (
-          <div className="white_box m-8 w-7/12">
+          <div className="white_box col-span-2 m-8 w-7/12">
             <h2 className={`${lora.className} text-gray-700 `}>
               Your Wishlist is empty
             </h2>

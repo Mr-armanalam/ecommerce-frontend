@@ -20,7 +20,7 @@ const Featured = ({ product }: { product: props }) => {
               <p className="description ">{product?.description}</p>
               <div className="mt-6 flex gap-2">
                 <Link
-                  href={"/products" + product?._id}
+                  href={"/products/" + product?._id}
                   className="btn-primary1 btn_white_Outline px-4 py-2"
                 >
                   Read more

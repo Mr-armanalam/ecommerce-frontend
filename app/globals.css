@@ -75,7 +75,7 @@ input{
   @apply outline-none border-b rounded-lg py-1 px-2 text-gray-600 ;
 }
 .white_box {
-  @apply bg-white h-fit rounded-md col-span-2 relative p-8 pb-12;
+  @apply bg-white h-fit rounded-md relative p-8 pb-12;
 }
 .scroll_bar{
   @apply [&::-webkit-scrollbar]:w-2

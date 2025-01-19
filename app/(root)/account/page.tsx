@@ -67,7 +67,7 @@ const Account = () => {
 
   return (
     <div className="nav-center mt-10 grid grid-cols-3 overflow-y-auto max-lg:mb-2 max-lg:grid-cols-1 max-lg:gap-y-2 lg:gap-10">
-      <div className="white_box">
+      <div className="white_box col-span-2">
         <Link
           href={process.env.NEXT_PUBLIC_ADMIN_URL || ""}
           className={`absolute ${lora.className} right-8 top-8 cursor-pointer rounded-2xl
@@ -150,7 +150,7 @@ const Account = () => {
         )}
       </div>
       <div>
-        <form className="white_box" onSubmit={handleAddressSave}>
+        <form className="white_box col-span-2" onSubmit={handleAddressSave}>
           <button
             type="button"
             className={`absolute ${lora.className} btn-primary1 btn_primary_Outline right-8 top-8

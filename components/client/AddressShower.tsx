@@ -69,7 +69,7 @@ const AddressShower = ({
   };
 
   return (
-    <div className="white_box mt-3">
+    <div className="white_box col-span-2 mt-3">
       <h3 className={` ${lora.className} text-xl `}>Saved Address</h3>
       {addresses.length > 0 &&
         addresses.map((address, index) => (

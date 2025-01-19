@@ -1,5 +1,6 @@
 import CartButton from "@/components/client/CartButton";
 import { ProductPropertes } from "@/components/client/ProductComponent";
+import ReviewShower from "@/components/client/ReviewShower";
 import ProductImages from "@/components/ProductImages";
 import { productDatails } from "@/lib/action/productDetails.action";
 import { Metadata } from "next";
@@ -17,7 +18,7 @@ const ProductDetails = async (props: { params: Params }) => {
 
   return (
     <div className="nav-center">
-      <div className="mt-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
+      <div className="my-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
         <div className="center col-span-2 rounded-md bg-white p-10">
           <ProductImages images={product.images} />
         </div>
@@ -39,6 +40,7 @@ const ProductDetails = async (props: { params: Params }) => {
           />
         </div>
       </div>
+      <ReviewShower />
     </div>
   );
 };
