@@ -5,6 +5,7 @@ import CartButton from "./CartButton";
 import { WishlistIcon } from "../icons";
 import { useWishlist } from "@/context/WishlistContext";
 import { Iproduct } from "@/model/product";
+import Link from "next/link";
 
 interface props extends Iproduct {
   _id: string;
@@ -44,9 +45,11 @@ const CategoriesResult = ({
         <Image src={images[0]} alt="product" width={200} height={200} />
       </div>
       <div className="col-span-3 max-sm:pb-4">
-        <p className="py-4 text-4xl font-bold text-gray-800">{title}</p>
-        <p className="text-sm font-medium text-gray-700">{description}</p>
-        <h3 className="mt-4 text-lg font-bold text-gray-700">Details</h3>
+        <Link href={`/products/${_id}`} passHref>
+          <p className="py-4 text-4xl font-bold text-gray-800">{title}</p>
+          <p className="text-sm font-medium text-gray-700">{description}</p>
+          <h3 className="mt-4 text-lg font-bold text-gray-700">Details</h3>
+        </Link>
         {properties && <ProductPropertes properties={properties} />}
         <div className="mt-4 flex items-center font-bold text-gray-600">
           <p className="mr-4 rounded-md border-2 border-gray-400 px-8 py-0.5 text-2xl">

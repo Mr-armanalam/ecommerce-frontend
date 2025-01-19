@@ -20,5 +20,6 @@ export const config = {
     '/products/:id*',
     '/account/:id*',
     '/wishlist/:id*',
+    '/categories/:id*',
   ],
 };
