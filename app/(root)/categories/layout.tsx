@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <SidebarProvider>
       <AppSidebar />
       <SidebarTrigger />
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>{" "}
+      <Suspense>{children}</Suspense>{" "}
     </SidebarProvider>
   );
 };
