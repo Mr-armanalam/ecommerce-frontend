@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
-  ChevronRight,
+  ChevronDown,
 } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -30,29 +31,6 @@ import { getCategories } from "@/lib/action/getCategories.action";
 import { Checkbox } from "./ui/checkbox";
 import { formUrlQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-
-// const items = [
-//   {
-//     _id: "675c0e9e3b69c541a28499bb",
-//     name: "Mobiles",
-//     properties: [],
-//     children: [
-//       { _id: "675d5e8a6c792646c91f64aa", name: "iPhones", properties: [] },
-//       { _id: "675d5ea16c792646c91f64ae", name: "Samsung", properties: [] },
-//       { _id: "675d5ec26c792646c91f64ba", name: "Xiaomi", properties: [] },
-//     ],
-//   },
-//   {
-//     _id: "676bffb9c0731b7673950eba",
-//     name: "Watches",
-//     properties: [],
-//     children: [
-//       { _id: "676c003ec0731b7673950ebe", name: "Men's watches", properties: [] },
-//       { _id: "676c00ccc0731b7673950ec6", name: "Women's watches", properties: [] },
-//     ],
-//   },
-//   // Add other categories here...
-// ];
 
 interface prop {
   _id: string;
@@ -123,10 +101,10 @@ export function AppSidebar () {
               ? <SidebarMenu>
               {items.map((item) => (
                 <Collapsible
-                  defaultOpen={false}
+                  defaultOpen={true}
                   key={item._id}
                   className="group/collapsible"
-                  open={openStates[item._id]}
+                  // open={openStates[item._id]}
                   onOpenChange={() => toggleOpen(item._id)}
                 >
                   <SidebarMenuItem>
@@ -135,8 +113,8 @@ export function AppSidebar () {
                         <SidebarMenuButton asChild>
                           <span>{item.name}</span>
                         </SidebarMenuButton>
-                        <ChevronRight
-                          className={`ml-auto transition-transform ${openStates[item._id] ? "rotate-90" : ""}`}
+                        <ChevronDown
+                          className={`ml-auto transition-transform ${openStates[item._id] ? "-rotate-90" : ""}`}
                         />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
@@ -151,16 +129,6 @@ export function AppSidebar () {
                              />
                              {child.name}
                            </SidebarMenuButton>
-
-                             {/* {child?.properties.map((prop, i) => (
-                              <CollapsibleContent key={i}>
-                              <SidebarMenuSub>
-                                <SidebarMenuSubItem>
-                                  <SidebarMenuButton>{prop['color']}
-                                  </SidebarMenuButton>
-                                </SidebarMenuSubItem>
-                              </SidebarMenuSub>
-                             </CollapsibleContent>))} */}
                         </SidebarMenuSubItem>
                       ))}
                       </SidebarMenuSub>
@@ -169,11 +137,38 @@ export function AppSidebar () {
                 </Collapsible>
               ))}
                 </SidebarMenu>
-              : "hi"
+              : <p className="text-wrap px-2 text-center leading-10 ">C A T E G O R I E S</p>
             }
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      {state === 'expanded' &&
+      <SidebarFooter className="text-center text-sm font-semibold text-gray-300 ">
+        Search Your Products
+      </SidebarFooter>}
     </Sidebar>
   );
 }
+
+// const items = [
+//   {
+//     _id: "675c0e9e3b69c541a28499bb",
+//     name: "Mobiles",
+//     properties: [],
+//     children: [
+//       { _id: "675d5e8a6c792646c91f64aa", name: "iPhones", properties: [] },
+//       { _id: "675d5ea16c792646c91f64ae", name: "Samsung", properties: [] },
+//       { _id: "675d5ec26c792646c91f64ba", name: "Xiaomi", properties: [] },
+//     ],
+//   },
+//   {
+//     _id: "676bffb9c0731b7673950eba",
+//     name: "Watches",
+//     properties: [],
+//     children: [
+//       { _id: "676c003ec0731b7673950ebe", name: "Men's watches", properties: [] },
+//       { _id: "676c00ccc0731b7673950ec6", name: "Women's watches", properties: [] },
+//     ],
+//   },
+//   // Add other categories here...
+// ];
