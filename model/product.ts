@@ -9,6 +9,7 @@ export interface Iproduct extends Document {
   images: string[];
   category: Types.ObjectId | undefined;
   properties: object | any;
+  rating: number;
   sells: number;
   totalItem: number;
 }
@@ -22,6 +23,7 @@ const ProductSchema = new Schema<Iproduct>(
     images: [{ type: String }],
     category: { type: Types.ObjectId, ref: "Category" },
     properties: { type: Object },
+    rating: { type: Number, default: 0 },
     sells: { type: Number, default: 0 },
     totalItem: { type: Number, default: 0 },
   },

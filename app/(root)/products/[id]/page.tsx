@@ -3,6 +3,7 @@ import { ProductPropertes } from "@/components/client/ProductComponent";
 import ReviewShower from "@/components/client/ReviewShower";
 import ProductImages from "@/components/ProductImages";
 import { productDatails } from "@/lib/action/productDetails.action";
+import { StarIcon } from "lucide-react";
 import { Metadata } from "next";
 import React from "react";
 
@@ -16,6 +17,11 @@ const ProductDetails = async (props: { params: Params }) => {
   const params = await props.params;
   const { product } = await productDatails(params.id);
 
+  const displayStarRating = (averageRating: number) => {
+    const fullStars = Math.floor(averageRating);
+    return fullStars;
+  };
+
   return (
     <div className="nav-center">
       <div className="my-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
@@ -27,20 +33,28 @@ const ProductDetails = async (props: { params: Params }) => {
           <p className="text-sm font-medium text-gray-700">
             {product.description}
           </p>
-          <h3 className="mt-4 text-lg font-bold text-gray-700">Details</h3>
+          <div className="mt-6 flex">
+            {[...Array(5)].map((_, i) => (
+              <StarIcon
+                key={i}
+                className={`size-5 ${displayStarRating(product.rating) > i ? "fill-yellow-400 text-yellow-400" : "text-gray-400"}`}
+              />
+            ))}
+          </div>
+          <h3 className="ml-1 mt-4 text-lg font-bold text-gray-700">Details</h3>
           {product?.properties && (
             <ProductPropertes properties={product?.properties} />
           )}
-          <p className="mt-4 text-2xl font-bold text-gray-700">
+          <p className="ml-1 mt-4 text-2xl font-bold text-gray-700">
             ${product.price}
           </p>
           <CartButton
             productId={product._id}
-            btnType={"btn_primary_noOutline mt-5 "}
+            btnType={"btn_primary_noOutline mt-5 ml-1 "}
           />
         </div>
       </div>
-      <ReviewShower productId = {params.id} />
+      <ReviewShower productId={params.id} />
     </div>
   );
 };

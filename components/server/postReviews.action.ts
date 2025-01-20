@@ -4,6 +4,7 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Reviews } from "../client/ReviewShower";
 import { Review } from "@/model/reviews.model";
+import { Product } from "@/model/product";
 
 export const postReviews = async (props: Reviews) => {
   try {
@@ -12,7 +13,16 @@ export const postReviews = async (props: Reviews) => {
     const newReview = new Review({ ...props });
     await newReview.save();
 
-    const reviews = await Review.findOne({ productId: props.productId, userId: props.userId })
+    const productReviews = await Review.find({ productId: props.productId }).select('rating');
+
+    const averageRating = productReviews.reduce((acc, review) => acc + review.rating, 0) / productReviews.length;
+
+    await Product.updateOne({ _id: props.productId }, { rating: averageRating })
+
+    const reviews = await Review.findOne({
+      productId: props.productId,
+      userId: props.userId,
+    })
       .sort({
         createdAt: -1,
       })
@@ -55,10 +65,18 @@ export const getAllReviews = async (productId: string) => {
   }
 };
 
-export const getUserReview = async ({ productId, userId }:{productId: string, userId: string | undefined}) => {
+export const getUserReview = async ({
+  productId,
+  userId,
+}: {
+  productId: string;
+  userId: string | undefined;
+}) => {
   try {
     mongooseConnect();
-    const review = await Review.findOne({ productId, userId }).populate("userId");
+    const review = await Review.findOne({ productId, userId }).populate(
+      "userId"
+    );
     if (review) {
       return {
         status: "success",
