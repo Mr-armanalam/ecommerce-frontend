@@ -3,8 +3,13 @@ import React, { useEffect, useState } from "react";
 import { lora } from "../Header";
 import { getAllReviews } from "../server/postReviews.action";
 import { useSession } from "next-auth/react";
-import { IClientUser } from "@/model/Clientuser.model";
 import ReviewStart from "./ReviewStart";
+
+export interface IClientUser extends Document {
+  _id: string;
+  name: string;
+  email: string;
+}
 
 export interface FetchReview {
   rating: number;
