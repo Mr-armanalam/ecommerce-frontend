@@ -57,7 +57,7 @@ const ReviewShower = ({ productId }: { productId: string }) => {
         setReviews(userReview.review);
       })();
     }
-  }, [productId, session]);
+  }, [productId, session, setReviews]);
 
   return (
     <section className=" relative pb-4">

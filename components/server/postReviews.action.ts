@@ -13,11 +13,18 @@ export const postReviews = async (props: Reviews) => {
     const newReview = new Review({ ...props });
     await newReview.save();
 
-    const productReviews = await Review.find({ productId: props.productId }).select('rating');
+    const productReviews = await Review.find({
+      productId: props.productId,
+    }).select("rating");
 
-    const averageRating = productReviews.reduce((acc, review) => acc + review.rating, 0) / productReviews.length;
+    const averageRating =
+      productReviews.reduce((acc, review) => acc + review.rating, 0) /
+      productReviews.length;
 
-    await Product.updateOne({ _id: props.productId }, { rating: averageRating })
+    await Product.updateOne(
+      { _id: props.productId },
+      { rating: averageRating }
+    );
 
     const reviews = await Review.findOne({
       productId: props.productId,
@@ -28,7 +35,7 @@ export const postReviews = async (props: Reviews) => {
       })
       .populate("userId");
 
-    if (reviews.length > 0) {
+    if (reviews) {
       return {
         status: "success",
         reviews: JSON.parse(JSON.stringify(reviews)),
