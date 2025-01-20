@@ -9,7 +9,7 @@ export interface Address {
   country: string;
 }
 
-interface IClientUser extends Document {
+export interface IClientUser extends Document {
   name: string;
   email: string;
   password: string;

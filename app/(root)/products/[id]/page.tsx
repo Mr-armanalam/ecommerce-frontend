@@ -40,7 +40,7 @@ const ProductDetails = async (props: { params: Params }) => {
           />
         </div>
       </div>
-      <ReviewShower />
+      <ReviewShower productId = {params.id} />
     </div>
   );
 };
