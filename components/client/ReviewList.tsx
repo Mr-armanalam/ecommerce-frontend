@@ -24,8 +24,6 @@ const ReviewList = ({ productId }: { productId: string }) => {
       (async () => {
         const fetchReviews = await getAllReviews(productId);
         if (!fetchReviews) return;
-        console.log(fetchReviews.reviews.length);
-
         const BuyerReviews = fetchReviews?.reviews.filter(
           (review: FetchReview) => review.userId?._id !== session?.user?.id
         );
