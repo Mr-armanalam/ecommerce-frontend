@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 type Params = Promise<{ id: string }>;
 const ProductDetails = async (props: { params: Params }) => {
   const params = await props.params;
-  const { product } = await productDatails(params.id);
+  const product = await productDatails(params.id);
 
   const displayStarRating = (averageRating: number) => {
     const fullStars = Math.floor(averageRating);
