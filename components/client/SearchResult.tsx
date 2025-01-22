@@ -35,7 +35,6 @@ const SearchResult = () => {
     }
   }, [handleSearchProducts, searchParams, router, isAdmin]);
 
-  // console.log(searchParams);
   return (
     <div className="no-scrollbar absolute top-14 z-40 max-h-96 w-[47.6rem] overflow-y-auto rounded-b-2xl border-x-2 border-b-2 border-gray-500 bg-[#222] p-4">
       <div className="flex items-center justify-between">
