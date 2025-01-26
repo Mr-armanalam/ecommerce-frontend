@@ -8,7 +8,7 @@ const ReviewStart = (review: FetchReview) => {
     <div className="rounded-lg bg-gray-50 px-6 py-4">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white object-cover font-bold uppercase">
-          {review.userId?.name.at(0)?.toUpperCase()}
+          {review.userId?.name ? review.userId?.name.at(0)?.toUpperCase() : review.userId?.email.at(0)?.toUpperCase()}
         </div>
         <span className="font-bold">{review.userId?.name}</span>
         <span className="ml-auto mr-4 text-xs font-bold text-gray-400">

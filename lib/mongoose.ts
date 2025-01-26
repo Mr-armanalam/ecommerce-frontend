@@ -20,6 +20,7 @@ export async function mongooseConnect () {
       return await mongoose.connection.asPromise();
     } else {
       await mongoose.connect(uri);
+      // await mongoose.connect(uri, { dbName: "ecommerce" });
       isConnected = true;
       console.log("Connected to MongoDB");
     }

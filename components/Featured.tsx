@@ -27,7 +27,7 @@ const Featured = ({ product }: { product: props }) => {
                 </Link>
                 <CartButton
                   fill={"fill-black size-5"}
-                  productId={product._id}
+                  productId={product?._id}
                   btnType={"btn_white_noOutline "}
                 />
               </div>
