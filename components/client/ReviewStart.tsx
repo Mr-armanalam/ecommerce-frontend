@@ -10,7 +10,7 @@ const ReviewStart = (review: FetchReview) => {
         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white object-cover font-bold uppercase">
           {review.userId?.name ? review.userId?.name.at(0)?.toUpperCase() : review.userId?.email.at(0)?.toUpperCase()}
         </div>
-        <span className="font-bold">{review.userId?.name}</span>
+        <span className="font-bold">{review.userId?.name ? review.userId.name : review.userId?.email.split('@')[0]}</span>
         <span className="ml-auto mr-4 text-xs font-bold text-gray-400">
           {new Date(review.createdAt).toLocaleDateString()}
         </span>

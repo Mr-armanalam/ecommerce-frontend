@@ -2,7 +2,7 @@
 "use server";
 
 import { Product } from "@/model/product";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 import { Order } from "@/model/Order.model";
 
 export async function getFeaturedProduct () {

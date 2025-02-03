@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { Iproduct, Product } from "@/model/product";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 
 export const productDatails = async (Id: string) => {
   try {

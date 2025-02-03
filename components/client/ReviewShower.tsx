@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 import ReviewList, { FetchReview } from "./ReviewList";
 import ReviewStart from "./ReviewStart";
-import { getUserReview, postReviews } from "@/lib/action/postReviews.action";
+import { getUserReview, postReviews } from "@/components/server/postReviews.action";
 // import CollapsibleRating from "./CollapsibleRating";
 
 export interface Reviews {

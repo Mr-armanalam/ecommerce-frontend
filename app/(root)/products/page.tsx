@@ -1,8 +1,8 @@
 "use client";
 import Searchbar from "@/components/client/Searchbar";
 import ProductBox from "@/components/ProductBox";
-import { getAllProducts } from "@/lib/action/allProducts.action";
-import { searchProducts } from "@/lib/action/getSearchResult.action";
+import { getAllProducts } from "@/components/server/allProducts.action";
+import { searchProducts } from "@/components/server/getSearchResult.action";
 import { useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 

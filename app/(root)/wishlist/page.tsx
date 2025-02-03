@@ -3,7 +3,7 @@ import { lora } from "@/components/Header";
 import { ClearIcon } from "@/components/icons";
 import ProductBox from "@/components/ProductBox";
 import { useWishlist } from "@/context/WishlistContext";
-import { getWishlistProducts } from "@/lib/action/products.action";
+import { getWishlistProducts } from "@/components/server/products.action";
 import React, { useEffect, useState } from "react";
 
 interface props {
@@ -19,7 +19,7 @@ const Wishlist = () => {
   const { wishlistProduct, clearWishlist } = useWishlist();
   const [products, setProducts] = useState<props[]>([]);
 
-  async function handleWishlist (product: string[]) {
+  async function handleWishlist(product: string[]) {
     const WishProducts = await getWishlistProducts(product);
     setProducts(WishProducts);
   }
@@ -31,32 +31,29 @@ const Wishlist = () => {
 
   return (
     <>
-      {products.length > 0
-        ? (
-          <div className="nav-center relative">
-            <div
-              className="absolute right-12 top-0 flex cursor-pointer items-center justify-center text-lg font-bold text-gray-700"
-              onClick={() => clearWishlist()}
-            >
-              <ClearIcon className="size-5" />
-              {" "}clear
-            </div>
-            <h2 className="text-[1.5em] font-bold">Your WishList</h2>
-            <div className="grid-product mb-8">
-              {products?.length > 0 &&
-                products.map((product, index) => (
-                  <ProductBox key={index} {...product} />
-                ))}
-            </div>
+      {products.length > 0 ? (
+        <div className="nav-center relative">
+          <div
+            className="absolute right-12 top-0 flex cursor-pointer items-center justify-center text-lg font-bold text-gray-700"
+            onClick={() => clearWishlist()}
+          >
+            <ClearIcon className="size-5" /> clear
           </div>
-          )
-        : (
-          <div className="white_box col-span-2 m-8 w-7/12">
-            <h2 className={`${lora.className} text-gray-700 `}>
-              Your Wishlist is empty
-            </h2>
+          <h2 className="text-[1.5em] font-bold">Your WishList</h2>
+          <div className="grid-product mb-8">
+            {products?.length > 0 &&
+              products.map((product, index) => (
+                <ProductBox key={index} {...product} />
+              ))}
           </div>
-          )}
+        </div>
+      ) : (
+        <div className="white_box col-span-2 m-8 w-7/12">
+          <h2 className={`${lora.className} text-gray-700 `}>
+            Your Wishlist is empty
+          </h2>
+        </div>
+      )}
     </>
   );
 };

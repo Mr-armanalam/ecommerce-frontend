@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { lora } from "../Header";
 import { useSession } from "next-auth/react";
 import ReviewStart from "./ReviewStart";
-import { getAllReviews } from "@/lib/action/postReviews.action";
+import { getAllReviews } from "@/components/server/postReviews.action";
 
 export interface IClientUser extends Document {
   _id: string;

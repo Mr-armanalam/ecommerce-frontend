@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import CategoriesResult from "@/components/client/CategoriesResult";
-import { getAllProducts } from "@/lib/action/allProducts.action";
-import { allProductsByCategory } from "@/lib/action/getAllProductsByCatg";
+import { getAllProducts } from "@/components/server/allProducts.action";
+import { allProductsByCategory } from "@/components/server/getAllProductsByCatg";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 

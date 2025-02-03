@@ -4,7 +4,7 @@
 import AddressShower from "@/components/client/AddressShower";
 import { lora } from "@/components/Header";
 import { CartContext } from "@/context/CartContext";
-import { getCartProduct } from "@/lib/action/products.action";
+import { getCartProduct } from "@/components/server/products.action";
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 

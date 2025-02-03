@@ -2,7 +2,7 @@
 "use server";
 
 import { ClientUser } from "@/model/Clientuser.model";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 
 export const getAllAddresses = async (_id: string) => {
   try {

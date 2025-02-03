@@ -3,8 +3,8 @@
 "use client";
 import AddressShower from "@/components/client/AddressShower";
 import { lora } from "@/components/Header";
-import { AddressSaver } from "@/lib/action/addressSaver";
-import { allOrderItems } from "@/lib/action/products.action";
+import { AddressSaver } from "@/components/server/addressSaver";
+import { allOrderItems } from "@/components/server/products.action";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { AdminUser } from "@/model/adminUser.model";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 import { Product } from "@/model/product";
 
 export interface SearchParams {

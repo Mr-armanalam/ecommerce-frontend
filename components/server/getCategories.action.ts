@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { Category } from "@/model/categories.model";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 
 export const getCategories = async () => {
   try {
@@ -18,7 +18,9 @@ export const getCategories = async () => {
       },
     ]);
 
-    return JSON.stringify(categories.filter((category) => category.children.length > 0));
+    return JSON.stringify(
+      categories.filter((category) => category.children.length > 0)
+    );
   } catch (error: any) {
     console.log(error.message);
     JSON.stringify({ error: "Failed to fetch categories" });

@@ -2,7 +2,7 @@
 "use server";
 
 import { ClientUser } from "@/model/Clientuser.model";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 
 export const AddressSaver = async (frmdata: FormData) => {
   const formDataObject: { [key: string]: any } = {};

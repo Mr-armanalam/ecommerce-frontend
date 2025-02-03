@@ -3,7 +3,7 @@
 "use server";
 
 import { Product } from "@/model/product";
-import { mongooseConnect } from "../mongoose";
+import { mongooseConnect } from "../../lib/mongoose";
 
 export const allProductsByCategory = async (category: string) => {
   try {

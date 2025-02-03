@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { searchProducts } from "@/lib/action/getSearchResult.action";
+import { searchProducts } from "@/components/server/getSearchResult.action";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
