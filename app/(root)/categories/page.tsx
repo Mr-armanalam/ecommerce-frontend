@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import CategoriesResult from "@/components/client/CategoriesResult";
+import ComponentLoader from "@/components/client/ComponentLoader";
 import { getAllProducts } from "@/components/server/allProducts.action";
 import { allProductsByCategory } from "@/components/server/getAllProductsByCatg";
 import { useSearchParams } from "next/navigation";
@@ -32,12 +33,13 @@ const Categories = () => {
   return (
     <>
       <div className="pb-8">
-        {products?.length > 0 &&
-          products.map((product, i) => (
+        {products?.length > 0
+          ? products.map((product, i) => (
             <div key={i} className="nav-center">
               <CategoriesResult {...product} />
             </div>
-          ))}
+          ))
+          : <ComponentLoader className = 'h-[90vh] w-[80vw]'/>}
       </div>
     </>
   );
