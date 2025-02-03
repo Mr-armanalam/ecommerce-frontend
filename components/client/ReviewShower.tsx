@@ -1,11 +1,9 @@
 "use client";
-// import React, { useEffect, useState } from "react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { lora } from "../Header";
 import { StarIcon } from "../icons";
 import { useSession } from "next-auth/react";
-import { postReviews } from "../server/postReviews.action";
-// import { getUserReview, postReviews } from "../server/postReviews.action";
+import { getUserReview, postReviews } from "../server/postReviews.action";
 import ReviewList, { FetchReview } from "./ReviewList";
 import ReviewStart from "./ReviewStart";
 // import CollapsibleRating from "./CollapsibleRating";
@@ -48,18 +46,18 @@ const ReviewShower = ({ productId }: { productId: string }) => {
     setDescription("");
   };
 
-  // useEffect(() => {
-  //   if (session?.user) {
-  //     (async () => {
-  //       const userReview = await getUserReview({
-  //         userId: session?.user.id,
-  //         productId,
-  //       });
-  //       if (!userReview) throw new Error("Failed to fetch reviews");
-  //       setReviews(userReview.review);
-  //     })();
-  //   }
-  // }, [productId, session, setReviews]);
+  useEffect(() => {
+    if (session?.user) {
+      (async () => {
+        const userReview = await getUserReview({
+          userId: session?.user.id,
+          productId,
+        });
+        // if (!userReview) throw new Error("Failed to fetch reviews");
+        setReviews(userReview.review);
+      })();
+    }
+  }, [productId, session, setReviews]);
 
   return (
     <section className=" relative pb-4">
@@ -116,7 +114,7 @@ const ReviewShower = ({ productId }: { productId: string }) => {
               )}
         </div>
         <div className="white_box col-span-3 h-fit">
-          <ReviewList productId={productId} />
+          {productId && <ReviewList productId={productId} />}
         </div>
       </div>
       {/* <CollapsibleRating /> */}
