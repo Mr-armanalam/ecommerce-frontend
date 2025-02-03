@@ -2,18 +2,10 @@
 "use server";
 
 import { mongooseConnect } from "@/lib/mongoose";
+import '@/lib/index'
 import { Review } from "@/model/reviews.model";
 import { Product } from "@/model/product";
-// import { Reviews } from "@/components/client/ReviewShower";
-
-export interface Reviews {
-  rating: number;
-  title: string;
-  description: string;
-  userId?: string;
-  productId: string;
-  createdAt?: string;
-}
+import { Reviews } from "@/components/client/ReviewShower";
 
 export const postReviews = async (props: Reviews) => {
   try {
