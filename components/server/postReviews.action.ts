@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { mongooseConnect } from "@/lib/mongoose";
 import { Reviews } from "../client/ReviewShower";
+import { mongooseConnect } from "@/lib/mongoose";
 import { Review } from "@/model/reviews.model";
 import { Product } from "@/model/product";
 
@@ -81,13 +81,13 @@ export const getUserReview = async ({
 }) => {
   try {
     mongooseConnect();
-    const review = await Review.findOne({ productId, userId }).populate(
+    const reviw = await Review.findOne({ productId, userId }).populate(
       "userId"
     );
-    if (review) {
+    if (reviw) {
       return {
         status: "success",
-        review: JSON.parse(JSON.stringify(review)),
+        review: JSON.parse(JSON.stringify(reviw)),
       };
     }
     return { status: "500", review: null };
