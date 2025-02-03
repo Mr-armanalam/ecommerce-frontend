@@ -47,3 +47,11 @@ export const removeKeysFromQuery = ({
     { skipNull: true }
   );
 };
+
+export const isAddedtoCart = ({ id }: { id: string }) => {
+  const cart = localStorage.getItem("cart");
+  if (!cart) return false;
+
+  const parsedCart = JSON.parse(cart);
+  return parsedCart.includes(id);
+}
