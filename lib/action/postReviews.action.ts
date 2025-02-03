@@ -4,7 +4,16 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Review } from "@/model/reviews.model";
 import { Product } from "@/model/product";
-import { Reviews } from "@/components/client/ReviewShower";
+// import { Reviews } from "@/components/client/ReviewShower";
+
+export interface Reviews {
+  rating: number;
+  title: string;
+  description: string;
+  userId?: string;
+  productId: string;
+  createdAt?: string;
+}
 
 export const postReviews = async (props: Reviews) => {
   try {
