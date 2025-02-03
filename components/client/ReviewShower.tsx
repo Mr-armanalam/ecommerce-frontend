@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import { lora } from "../Header";
 import { StarIcon } from "../icons";
 import { useSession } from "next-auth/react";
-import { getUserReview, postReviews } from "../server/postReviews.action";
+// import { getUserReview, postReviews } from "../server/postReviews.action";
+
 import ReviewList, { FetchReview } from "./ReviewList";
 import ReviewStart from "./ReviewStart";
+import { getUserReview, postReviews } from "@/lib/action/postReviews.action";
 // import CollapsibleRating from "./CollapsibleRating";
 
 export interface Reviews {
