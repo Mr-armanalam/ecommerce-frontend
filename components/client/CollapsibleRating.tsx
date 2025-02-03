@@ -15,11 +15,11 @@ const CollapsibleRating = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="absolute bottom-0 rounded-lg p-1 bg-gray-50">
+    <div className="absolute bottom-0 rounded-lg bg-gray-50 p-1">
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="bg-white min-w-[33rem] rounded-lg px-8 py-1 space-y-2"
+        className="min-w-[33rem] space-y-2 rounded-lg bg-white px-8 py-1"
       >
         <div className="flex items-center justify-between space-x-4 px-4">
           <h3 className={`${lora.className} font-bold text-gray-500`}>

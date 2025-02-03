@@ -81,16 +81,18 @@ const AddressShower = ({
               className="absolute right-2 top-1"
               onClick={() => handleAddressEdit(address)}
             >
-              {isCart ? (
+              {isCart
+                ? (
                 <button
                   className="rounded-lg border-2 border-gray-400 px-3
                     py-1 font-semibold text-gray-400 hover:border-gray-600 hover:text-gray-600  "
                 >
                   Make Payment
                 </button>
-              ) : (
-                <EditIcon />
-              )}
+                  )
+                : (
+                  <EditIcon />
+                  )}
             </span>
             <p>
               {address.name},<br />

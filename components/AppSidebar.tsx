@@ -36,7 +36,7 @@ interface prop {
   properties: Array<string>;
   children: Array<prop>;
 }
-export function AppSidebar() {
+export function AppSidebar () {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
@@ -103,8 +103,9 @@ export function AppSidebar() {
       <SidebarContent className="font-semibold text-gray-400">
         <SidebarGroup>
           <SidebarGroupContent>
-            {state === "expanded" ? (
-              <SidebarMenu>
+            {state === "expanded"
+              // eslint-disable-next-line multiline-ternary
+              ? (<SidebarMenu>
                 {items.map((item) => (
                   <Collapsible
                     defaultOpen={true}
@@ -145,11 +146,11 @@ export function AppSidebar() {
                   </Collapsible>
                 ))}
               </SidebarMenu>
-            ) : (
+                ) : (
               <p className="text-wrap px-2 text-center leading-10 ">
                 C A T E G O R I E S
               </p>
-            )}
+                )}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
