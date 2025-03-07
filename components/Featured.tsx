@@ -7,14 +7,15 @@ interface props {
   _id: string;
   title: string;
   description: string;
+  images: string[];
 }
 
 const Featured = ({ product }: { product: props }) => {
   return (
     <div className="bg-primary-800 py-8 text-white">
       <div className="nav-center">
-        <div className="grid grid-cols-2 gap-8 max-sm:grid-cols-1">
-          <div className="grid-column">
+        <div className="grid grid-cols-5 gap-8 max-sm:grid-cols-1">
+          <div className="grid-column col-span-3 md:px-8">
             <div>
               <h1>{product?.title}</h1>
               <p className="description ">{product?.description}</p>
@@ -33,12 +34,13 @@ const Featured = ({ product }: { product: props }) => {
               </div>
             </div>
           </div>
-          <div className="grid-column max-sm:-order-1">
-            <div className="flex md:pr-10">
+          <div className="grid-column col-span-2 flex max-h-[300px] justify-center max-sm:-order-1">
+            <div className="aspect-3/6 ml-aut mr-8 flex max-h-[300px] max-w-[500px] md:pr-10">
               <img
-                src="https://res.cloudinary.com/dfdgzoi7t/image/upload/v1734252785/product_1734252762572.webp"
+                src={product?.images[0]}
                 alt="home product"
-                className="w-[85%] max-md:w-[100%] sm:ml-auto"
+                className="sm:ml-auto"
+                // className="w-[85%] max-md:w-[100%] sm:ml-auto"
               />
             </div>
           </div>

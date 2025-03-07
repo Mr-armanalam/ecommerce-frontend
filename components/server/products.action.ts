@@ -4,11 +4,11 @@
 import { Product } from "@/model/product";
 import { mongooseConnect } from "../../lib/mongoose";
 import { Order } from "@/model/Order.model";
+import { Tranding } from "@/model/trndingProduct";
 
 export async function getFeaturedProduct () {
-  const featuredProductId = "675d60ac6c792646c91f64ff";
   await mongooseConnect();
-  const featuredProductData = await Product.findById(featuredProductId);
+  const featuredProductData = await Tranding.findOne({}).populate('TrndProduct');
   const newProduct = await Product.find({}, null, {
     sort: { _id: -1 },
     limit: 10,

@@ -49,9 +49,13 @@ export const removeKeysFromQuery = ({
 };
 
 export const isAddedtoCart = ({ id }: { id: string }) => {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return false;
+  }
+
   const cart = localStorage.getItem("cart");
   if (!cart) return false;
 
   const parsedCart = JSON.parse(cart);
   return parsedCart.includes(id);
-}
+};
