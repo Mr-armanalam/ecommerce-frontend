@@ -16,7 +16,7 @@ const CartButton = ({ btnType, productId, icon = true, fill }: IcartButton) => {
   return (
     <button
       onClick={() => addProduct(productId)}
-      className={`btn-primary1 ${btnType} ${isAddedtoCart({ id: productId }) && 'cursor-not-allowed opacity-30'} px-5 py-1.5`}
+      className={`btn-primary1 ${btnType} ${isAddedtoCart({ id: productId }) && "cursor-not-allowed opacity-30"} px-5 py-1.5 disabled:cursor-default`}
       disabled={isAddedtoCart({ id: productId })}
     >
       {icon && (
